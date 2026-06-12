@@ -79,21 +79,21 @@
 <div class="bg-white py-3"></div>
 
 <div class="hero-section">
-    <h4>
+    <h5>
         Selamat datang di Sistem Informasi Merdeka Belajar Kampus Merdeka
         (MBKM) Prodi Teknik Informatika Politeknik Negeri Cilacap!
-    </h4>
+    </h5>
 
-    <h4>
+    <h6>
         <strong>Periode Akademik</strong> 2025/2026
-    </h4>
+    </h6>
 </div>
 
 <div class="container py-5">
 
     <div class="card info-card">
 
-        <p style="font-size:24px">
+        <p style="font: size 20px;">
 
             <strong>
                 Merdeka Belajar – Kampus Merdeka (MBKM)
