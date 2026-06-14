@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Dashboard Admin</title>
+    <title>Informasi MBKM</title>
 
     <meta charset="UTF-8">
 
@@ -44,27 +44,26 @@
             font-weight: 500;
         }
 
-        .card-info {
+        .judul {
+            padding: 15px 25px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-create {
             background: #f4d233;
             border: none;
-            height: 120px;
+            padding: 10px 25px;
         }
 
-        .card-info .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-box {
-            width: 250px;
-            margin-left: auto;
+        .table {
+            background: white;
         }
 
         .table th {
             background: #f4d233 !important;
             text-align: center;
+            font-weight: 500;
         }
 
         .btn-detail {
@@ -114,7 +113,7 @@
 
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
 
-                    Logout
+                    LOGOUT
 
                 </a>
 
@@ -125,103 +124,48 @@
         <div class="menu">
 
             <a href="/admin">
-                <b>Dashboard</b>
+
+                Dashboard
+
             </a>
 
-            <a href="informasi-mbkm">
-                Informasi MBKM
+            <a href="/informasi-mbkm">
+
+                <b>Informasi MBKM</b>
+
             </a>
 
         </div>
 
-        <div class="container-fluid mt-4">
+        <div class="judul">
 
-            <h6 class="fw-bold mb-3">
+            Informasi MBKM
 
-                Dashboard
+        </div>
 
-            </h6>
+        <div class="container-fluid px-4">
 
-            <div class="row mb-5">
+            <div class="text-end mb-4">
 
-                <div class="col-md-4">
+                <a href="/informasi-mbkm/create" class="btn btn-create">
 
-                    <div class="card card-info">
+                    Create/Tambah
 
-                        <div class="card-body">
-
-                            <small>Total Aktivitas MBKM</small>
-
-                            <h4 class="mt-2">
-
-                                {{ $totalAktivitas }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <small>MBKM Berlangsung</small>
-
-                            <h4 class="mt-2">
-
-                                {{ $berlangsung }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <small>MBKM Status Selesai</small>
-
-                            <h4 class="mt-2">
-
-                                {{ $selesai }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                </a>
 
             </div>
 
-            <div class="search-box mb-3">
-
-                <input type="text" class="form-control" placeholder="Cari Nama Mahasiswa">
-
-            </div>
-
-            <table class="table table-bordered bg-white">
+            <table class="table table-bordered">
 
                 <thead>
 
                     <tr>
 
-                        <th>Nama Mahasiswa</th>
-                        <th>Program</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Nama Program</th>
+                        <th>Deskripsi</th>
+                        <th>Link Pendaftaran</th>
+                        <th>Foto</th>
+                        <th width="140">Action</th>
 
                     </tr>
 
@@ -229,15 +173,9 @@
 
                 <tbody>
 
-                    @foreach($aktivitas as $item)
+                    @foreach($program as $item)
 
                         <tr>
-
-                            <td>
-
-                                {{ $item->name }}
-
-                            </td>
 
                             <td>
 
@@ -247,15 +185,37 @@
 
                             <td>
 
-                                {{ $item->status_program }}
+                                {{ substr($item->deskripsi, 0, 80) }}
+
+                            </td>
+
+                            <td>
+
+                                <a href="{{ $item->link_daftar }}" target="_blank">
+
+                                    {{ $item->link_daftar }}
+
+                                </a>
 
                             </td>
 
                             <td class="text-center">
 
-                                <a href="/detail-mbkm/{{ $item->id }}" class="btn btn-detail btn-sm">
+                                <img src="{{ asset('program/' . $item->gambar) }}" width="100">
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <a href="/informasi-mbkm/detail/{{ $item->id }}" class="btn btn-detail btn-sm">
 
                                     Detail
+
+                                </a>
+
+                                <a href="/informasi-mbkm/delete/{{ $item->id }}" class="btn btn-danger btn-sm">
+
+                                    Hapus
 
                                 </a>
 

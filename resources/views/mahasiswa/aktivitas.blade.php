@@ -96,10 +96,10 @@
 
             <div class="d-flex align-items-center">
 
-                <img src="{{ asset('images/PNC.png') }}" height="50">
-                <img src="{{ asset('images/JKB.png') }}" height="50">
-                <img src="{{ asset('images/TI.png') }}" height="50">
-                <img src="{{ asset('images/mbkm.png') }}" height="50">
+                <img src="{{ asset('images/PNC.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/JKB.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/TI.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/mbkm.png') }}" height="50" style="padding: 3px;">
 
                 <div class="ms-3">
 
@@ -113,11 +113,11 @@
 
             <div>
 
-                <button class="btn btn-light rounded-pill me-2">
+                <a href="{{ url('/profile') }}" class="btn btn-light btn-sm rounded-pill me-2">
 
                     {{ session('name') }}
 
-                </button>
+                </a>
 
                 <a href="/logout" class="btn btn-light rounded-pill">
 
@@ -153,39 +153,75 @@
 
         <div class="info-bar">
 
-            <div class="row text-center">
+            @if($aktivitas)
 
-                <div class="col">
+                <div class="row text-center align-items-center">
 
-                    {{ session('name') }}
+                    <div class="col">
 
-                </div>
+                        {{ session('name') }}
 
-                <div class="col">
+                    </div>
 
-                    @if($aktivitas)
+                    <div class="col">
 
                         {{ $aktivitas->nama_program }}
 
-                    @else
+                    </div>
+
+                    <div class="col">
+
+                        {{ $aktivitas->status_program }}
+
+                    </div>
+
+                    <div class="col">
+
+                        {{ $aktivitas->learning_path }}
+
+                    </div>
+
+                    <div class="col">
+
+                        <a href="/edit-program/{{ $aktivitas->id }}" class="btn btn-sm btn-outline-dark">
+
+                            Ubah Program
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            @else
+
+                <div class="row text-center align-items-center">
+
+                    <div class="col">
+
+                        {{ session('name') }}
+
+                    </div>
+
+                    <div class="col">
 
                         Tidak Ada Program
 
-                    @endif
+                    </div>
+
+                    <div class="col">
+
+                        <a href="/tambah-program" class="btn-program">
+
+                            + Tambah Program
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-                <div class="col">
-
-                    <a href="/tambah-program" class="btn-program">
-
-                        + Tambah Program
-
-                    </a>
-
-                </div>
-
-            </div>
+            @endif
 
         </div>
 
@@ -256,16 +292,6 @@
                 </tbody>
 
             </table>
-
-            @if($aktivitas)
-
-                <a href="/tambah-progress/{{ $aktivitas->id }}" class="btn btn-warning">
-
-                    + Tambah Progress
-
-                </a>
-
-            @endif
 
         </div>
 

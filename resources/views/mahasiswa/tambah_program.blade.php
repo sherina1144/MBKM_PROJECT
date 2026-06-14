@@ -90,10 +90,10 @@
 
             <div class="d-flex align-items-center">
 
-                <img src="{{ asset('images/PNC.png') }}" height="50">
-                <img src="{{ asset('images/JKB.png') }}" height="50">
-                <img src="{{ asset('images/TI.png') }}" height="50">
-                <img src="{{ asset('images/mbkm.png') }}" height="50">
+                <img src="{{ asset('images/PNC.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/JKB.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/TI.png') }}" height="50" style="padding: 3px;">
+                <img src="{{ asset('images/mbkm.png') }}" height="50" style="padding: 3px;">
 
                 <div class="ms-3">
 
@@ -107,11 +107,11 @@
 
             <div>
 
-                <button class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="{{ url('/profile') }}" class="btn btn-light btn-sm rounded-pill me-2">
 
                     {{ session('name') }}
 
-                </button>
+                </a>
 
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
 
@@ -124,12 +124,12 @@
         </div>
 
         <div class="ms-auto"></div>
-            <a href="/aktivitas" class="btn btn-outline-secondary btn-sm mb-4">
+        <a href="/aktivitas" class="btn btn-outline-secondary btn-sm mb-4">
 
             ← Kembali
 
-            </a>
-        </div>
+        </a>
+    </div>
 
     <div class="container">
 

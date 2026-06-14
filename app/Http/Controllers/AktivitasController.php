@@ -35,36 +35,71 @@ class AktivitasController extends Controller
 
         return view('mahasiswa.tambah_program', compact('program'));
     }
-
     public function store(Request $request)
     {
+        $request->validate([
+
+            'program_id' => 'required',
+            'status_program' => 'required',
+            'learning_path' => 'required'
+
+        ]);
+
         DB::table('aktivitas_mbkm')->insert([
+
             'user_id' => session('user_id'),
             'program_id' => $request->program_id,
-            'status_program' => 'Berlangsung',
+            'status_program' => $request->status_program,
             'learning_path' => $request->learning_path,
             'created_at' => now(),
             'updated_at' => now()
+
         ]);
 
         return redirect('/aktivitas');
     }
 
+    public function formProgress()
+    {
+        $aktivitas = DB::table('aktivitas_mbkm')
+            ->where('user_id', session('user_id'))
+            ->first();
+
+        if (!$aktivitas) {
+
+            return redirect('/aktivitas')
+                ->with('error', 'Silakan tambah program terlebih dahulu');
+
+        }
+
+        return view(
+            'mahasiswa.progress',
+            compact('aktivitas')
+        );
+    }
+
     public function createProgress($id)
     {
-        return view('mahasiswa.tambah_progress', [
-            'aktivitas_id' => $id
-        ]);
+        $aktivitas = DB::table('aktivitas_mbkm')
+            ->where('id', $id)
+            ->first();
+
+        return view(
+            'mahasiswa.tambah_progress',
+            compact('aktivitas')
+        );
     }
 
     public function storeProgress(Request $request)
     {
         DB::table('progress_mbkm')->insert([
+
             'aktivitas_id' => $request->aktivitas_id,
             'bulan' => $request->bulan,
             'progress' => $request->progress,
             'created_at' => now(),
             'updated_at' => now()
+
         ]);
 
         return redirect('/aktivitas');
