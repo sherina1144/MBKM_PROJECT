@@ -10,8 +10,17 @@ class AktivitasController extends Controller
     public function index()
     {
         $aktivitas = DB::table('aktivitas_mbkm')
-            ->join('program_mbkm', 'aktivitas_mbkm.program_id', '=', 'program_mbkm.id')
-            ->where('user_id', session('user_id'))
+            ->join(
+                'program_mbkm',
+                'aktivitas_mbkm.program_id',
+                '=',
+                'program_mbkm.id'
+            )
+            ->where('aktivitas_mbkm.user_id', session('user_id'))
+            ->select(
+                'aktivitas_mbkm.*',
+                'program_mbkm.nama_program'
+            )
             ->first();
 
         $progress = [];
@@ -55,6 +64,47 @@ class AktivitasController extends Controller
             'updated_at' => now()
 
         ]);
+
+        return redirect('/aktivitas');
+    }
+
+    public function edit($id)
+    {
+        $aktivitas = DB::table('aktivitas_mbkm')
+            ->where('id', $id)
+            ->first();
+
+        $program = DB::table('program_mbkm')->get();
+
+        return view(
+            'mahasiswa.edit_program',
+            compact(
+                'aktivitas',
+                'program'
+            )
+        );
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+
+            'program_id' => 'required',
+            'status_program' => 'required',
+            'learning_path' => 'required'
+
+        ]);
+
+        DB::table('aktivitas_mbkm')
+            ->where('id', $id)
+            ->update([
+
+                'program_id' => $request->program_id,
+                'status_program' => $request->status_program,
+                'learning_path' => $request->learning_path,
+                'updated_at' => now()
+
+            ]);
 
         return redirect('/aktivitas');
     }

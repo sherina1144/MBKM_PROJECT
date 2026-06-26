@@ -201,7 +201,7 @@
 
                             <td class="text-center">
 
-                                <img src="{{ asset('program/' . $item->gambar) }}" width="100">
+                                <img  src="{{ asset('images/'.$item->gambar) }}" width="100">
 
                             </td>
 

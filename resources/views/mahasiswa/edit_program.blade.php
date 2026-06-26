@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Tambah Informasi MBKM</title>
+    <title>Ubah Program MBKM</title>
 
     <meta charset="UTF-8">
 
@@ -41,20 +41,22 @@
             text-decoration:none;
             color:black;
             margin-right:20px;
-            font-size:14px;
             font-weight:500;
+            font-size:14px;
         }
 
-        .form-area{
-            width:900px;
-            margin:30px auto;
+        .form-box{
+            width:850px;
+            margin:35px auto;
         }
 
-        .form-control{
+        .form-control,
+        .form-select{
             border:1px solid #f4d233;
         }
 
-        .form-control:focus{
+        .form-control:focus,
+        .form-select:focus{
             border-color:#f4d233;
             box-shadow:none;
         }
@@ -62,14 +64,23 @@
         .btn-simpan{
             background:#16224d;
             color:white;
-            width:100px;
             border:none;
+            width:120px;
+        }
+
+        .btn-simpan:hover{
+            background:#0d163d;
+            color:white;
         }
 
         .btn-batal{
             background:#f4d233;
-            width:100px;
             border:none;
+            width:120px;
+        }
+
+        .btn-batal:hover{
+            background:#e5c31d;
         }
 
         footer{
@@ -127,62 +138,60 @@
 
     <div class="menu">
 
-        <a href="/admin">
+        <a href="/mahasiswa">
 
             Dashboard
 
         </a>
 
-        <a href="/informasi-mbkm">
+        <a href="/aktivitas">
 
-            <b>Informasi MBKM</b>
+            <b>Aktivitas MBKM</b>
+
+        </a>
+
+        <a href="/progress">
+
+            Progress
 
         </a>
 
     </div>
 
-    <div class="form-area">
+    <div class="form-box">
 
-        <form
-            action="/informasi-mbkm/store"
-            method="POST"
-            enctype="multipart/form-data">
+        <form action="/update-program/{{ $aktivitas->id }}"
+              method="POST">
 
             @csrf
 
             <div class="row mb-3 align-items-center">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
 
-                    Nama Program
-
-                </div>
-
-                <div class="col-md-10">
-
-                    <input
-                        type="text"
-                        name="nama_program"
-                        class="form-control">
+                    Program MBKM
 
                 </div>
 
-            </div>
+                <div class="col-md-9">
 
-            <div class="row mb-3">
+                    <select
+                        name="program_id"
+                        class="form-select">
 
-                <div class="col-md-2">
+                        @foreach($program as $item)
 
-                    Deskripsi
+                            <option
+                                value="{{ $item->id }}"
+                                {{ $aktivitas->program_id == $item->id ? 'selected' : '' }}>
 
-                </div>
+                                {{ $item->nama_program }}
 
-                <div class="col-md-10">
+                            </option>
 
-                    <textarea
-                        name="deskripsi"
-                        rows="6"
-                        class="form-control"></textarea>
+                        @endforeach
+
+                    </select>
 
                 </div>
 
@@ -190,18 +199,35 @@
 
             <div class="row mb-3 align-items-center">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
 
-                    Link Pendaftaran
+                    Status Program
 
                 </div>
 
-                <div class="col-md-10">
+                <div class="col-md-9">
 
-                    <input
-                        type="text"
-                        name="link_daftar"
-                        class="form-control">
+                    <select
+                        name="status_program"
+                        class="form-select">
+
+                        <option
+                            value="Berlangsung"
+                            {{ $aktivitas->status_program == 'Berlangsung' ? 'selected' : '' }}>
+
+                            Berlangsung
+
+                        </option>
+
+                        <option
+                            value="Selesai"
+                            {{ $aktivitas->status_program == 'Selesai' ? 'selected' : '' }}>
+
+                            Selesai
+
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -209,18 +235,20 @@
 
             <div class="row mb-4 align-items-center">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
 
-                    Foto
+                    Learning Path
 
                 </div>
 
-                <div class="col-md-10">
+                <div class="col-md-9">
 
                     <input
-                        type="file"
-                        name="gambar"
-                        class="form-control">
+                        type="text"
+                        name="learning_path"
+                        class="form-control"
+                        value="{{ $aktivitas->learning_path }}">
+
                 </div>
 
             </div>
@@ -229,13 +257,13 @@
 
                 <button
                     type="submit"
-                    class="btn btn-simpan me-3">
+                    class="btn btn-simpan me-2">
 
                     Simpan
 
                 </button>
 
-                <a href="/informasi-mbkm"
+                <a href="/aktivitas"
                    class="btn btn-batal">
 
                     Batal

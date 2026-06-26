@@ -102,6 +102,16 @@ Route::middleware('login')->group(function () {
         [ProgramController::class, 'detail']
     );
 
+    Route::get(
+        '/informasi-mbkm/detail/{id}',
+        [ProgramController::class, 'detail']
+    );
+
+    Route::post(
+        '/informasi-mbkm/update/{id}',
+        [ProgramController::class, 'update']
+    );
+
     //ROLE DOSEN
     Route::get('/dosen', [DosenController::class, 'index']);
 

@@ -122,7 +122,7 @@
 
                     <div class="card program-card">
 
-                        <img src="{{ asset('program/' . $item->gambar) }}" alt="{{ $item->nama_program }}">
+                        <img src="{{ asset('images/' . $item->gambar) }}" alt="{{ $item->nama_program }}">
 
                         <div class="card-body">
 

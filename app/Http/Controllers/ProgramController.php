@@ -22,17 +22,18 @@ class ProgramController extends Controller
         return view('admin.tambah_program_mbkm');
     }
 
+
     public function store(Request $request)
     {
-        $foto = null;
+        $gambar = null;
 
-        if ($request->hasFile('foto')) {
+        if ($request->hasFile('gambar')) {
 
-            $foto = time() . '.' . $request->foto->extension();
+            $gambar = time() . '.' . $request->gambar->extension();
 
-            $request->foto->move(
-                public_path('program'),
-                $foto
+            $request->gambar->move(
+                public_path('images'),
+                $gambar
             );
         }
 
@@ -40,8 +41,8 @@ class ProgramController extends Controller
 
             'nama_program' => $request->nama_program,
             'deskripsi' => $request->deskripsi,
-            'link_pendaftaran' => $request->link_pendaftaran,
-            'foto' => $foto,
+            'link_daftar' => $request->link_daftar,
+            'gambar' => $gambar,
             'created_at' => now(),
             'updated_at' => now()
 
@@ -49,6 +50,8 @@ class ProgramController extends Controller
 
         return redirect('/informasi-mbkm');
     }
+
+
 
     public function delete($id)
     {
@@ -69,5 +72,35 @@ class ProgramController extends Controller
             'admin.detail_program',
             compact('program')
         );
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = [
+
+            'nama_program' => $request->nama_program,
+            'deskripsi' => $request->deskripsi,
+            'link_daftar' => $request->link_daftar,
+            'updated_at' => now()
+
+        ];
+
+        if ($request->hasFile('gambar')) {
+
+            $gambar = time() . '.' . $request->gambar->extension();
+
+            $request->gambar->move(
+                public_path('images'),
+                $gambar
+            );
+
+            $data['gambar'] = $gambar;
+        }
+
+        DB::table('program_mbkm')
+            ->where('id', $id)
+            ->update($data);    
+
+        return redirect('/informasi-mbkm');
     }
 }

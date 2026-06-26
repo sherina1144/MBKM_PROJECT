@@ -250,12 +250,6 @@
 
     </div>
 
-    <footer>
-
-        © 2026 Politeknik Negeri Cilacap
-
-    </footer>
-
 </body>
 
 </html>
