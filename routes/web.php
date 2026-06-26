@@ -8,6 +8,7 @@ use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ProgressController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -53,13 +54,13 @@ Route::middleware('login')->group(function () {
     Route::post('/update-program/{id}', [AktivitasController::class, 'update']);
 
     // Progress
-    Route::get('/progress', [AktivitasController::class, 'formProgress']);
+    Route::get('/progress', [ProgressController::class, 'formProgress']);
 
     // Halaman Form Progress
-    Route::get('/tambah-progress/{id}', [AktivitasController::class, 'createProgress']);
+    Route::get('/tambah-progress/{id}', [ProgressController::class, 'createProgress']);
 
     // Simpan Progress
-    Route::post('/simpan-progress', [AktivitasController::class, 'storeProgress']);
+    Route::post('/simpan-progress', [ProgressController::class, 'storeProgress']);
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'index']);
@@ -120,4 +121,12 @@ Route::middleware('login')->group(function () {
         [DosenController::class, 'detail']
     );
 
+    // Role Dosen
+    Route::get('/dosen', [DosenController::class, 'index']);
+
+    Route::get('/informasi-mahasiswa', [DosenController::class, 'informasiMahasiswa']);
+
+    Route::get('/detail-mahasiswa/{id}', [DosenController::class, 'detailMahasiswa']);
+
+    Route::post('/simpan-komentar', [DosenController::class, 'simpanKomentar']);
 });

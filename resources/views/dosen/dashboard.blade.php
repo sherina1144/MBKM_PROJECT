@@ -128,8 +128,8 @@
                 <b>Dashboard</b>
             </a>
 
-            <a href="#">
-                Informasi MBKM
+            <a href="informasi-mahasiswa">
+                Informasi Mahasiswa
             </a>
 
         </div>
