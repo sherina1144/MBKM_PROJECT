@@ -115,9 +115,38 @@ Route::middleware('login')->group(function () {
     //ROLE DOSEN
     Route::get('/dosen', [DosenController::class, 'index']);
 
+    //detail dashboard
+    Route::get(
+        '/detail/{id}',
+        [DosenController::class, 'detail']
+    );
+
+    //detail informasi mahasiswa
     Route::get(
         '/detail-mahasiswa/{id}',
-        [DosenController::class, 'detail']
+        [DosenController::class, 'detailMahasiswa']
+    );
+
+    Route::get('/informasi-mahasiswa', [DosenController::class, 'informasiMahasiswa']);
+
+    Route::get(
+        '/komentar/tambah/{id}',
+        [DosenController::class, 'formTambahKomentar']
+    );
+
+    Route::post(
+        '/komentar/store',
+        [DosenController::class, 'storeKomentar']
+    );
+
+    Route::get(
+        '/komentar/edit/{id}',
+        [DosenController::class, 'formEditKomentar']
+    );
+
+    Route::post(
+        '/komentar/update/{id}',
+        [DosenController::class, 'updateKomentar']
     );
 
 });

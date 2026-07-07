@@ -122,7 +122,7 @@
                 <div class="row mb-3">
 
                     <div class="col-md-3">
-                        Program 
+                        Program
                     </div>
 
                     <div class="col-md-6">

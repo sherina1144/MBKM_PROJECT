@@ -152,6 +152,8 @@ class AktivitasController extends Controller
 
         ]);
 
+
+        
         return redirect('/aktivitas');
     }
 }

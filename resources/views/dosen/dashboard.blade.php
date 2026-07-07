@@ -3,11 +3,13 @@
 
 <head>
 
-    <title>Dashboard Admin</title>
+    <title>Dashboard Dosen</title>
 
     <meta charset="UTF-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         html,
@@ -41,7 +43,6 @@
             color: black;
             margin-right: 20px;
             font-size: 14px;
-            font-weight: 500;
         }
 
         .card-info {
@@ -50,7 +51,7 @@
             height: 120px;
         }
 
-        .card-info .card-body {
+        .card-body {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -58,13 +59,22 @@
         }
 
         .search-box {
-            width: 250px;
+            width: 350px;
             margin-left: auto;
+        }
+
+        .search-box .input-group-text {
+            background: white;
         }
 
         .table th {
             background: #f4d233 !important;
             text-align: center;
+            vertical-align: middle;
+        }
+
+        .table td {
+            vertical-align: middle;
         }
 
         .btn-detail {
@@ -114,7 +124,7 @@
 
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
 
-                    Logout
+                    LOGOUT
 
                 </a>
 
@@ -124,12 +134,12 @@
 
         <div class="menu">
 
-            <a href="/admin">
-                <b>Dashboard</b>
-            </a>
+            <a href="/dosen"><b>Dashboard</b></a>
 
-            <a href="#">
-                Informasi MBKM
+            <a href="/informasi-mahasiswa">
+
+                Informasi Mahasiswa
+
             </a>
 
         </div>
@@ -150,29 +160,9 @@
 
                         <div class="card-body">
 
-                            <small>Total Mahasiswa</small>
+                            <b>Total Aktivitas MBKM</b>
 
-                            <h4 class="mt-2">
-
-                                {{ $totalMahasiswa }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <small>Total Aktivitas</small>
-
-                            <h4 class="mt-2">
+                            <h4 class="mt-3">
 
                                 {{ $totalAktivitas }}
 
@@ -190,11 +180,31 @@
 
                         <div class="card-body">
 
-                            <small>Total Progress</small>
+                            <b>MBKM Berlangsung</b>
 
-                            <h4 class="mt-2">
+                            <h4 class="mt-3">
 
-                                {{ $totalProgress }}
+                                {{ $berlangsung }}
+
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card card-info">
+
+                        <div class="card-body">
+
+                            <b>MBKM Status Selesai</b>
+
+                            <h4 class="mt-3">
+
+                                {{ $selesai }}
 
                             </h4>
 
@@ -206,35 +216,106 @@
 
             </div>
 
-            <div class="search-box mb-3">
+            <form action="/dosen" method="GET">
 
-                <input type="text" class="form-control" placeholder="Cari Nama Mahasiswa">
+                <div class="search-box mb-4">
 
-            </div>
+                    <div class="input-group">
+
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                            placeholder="Cari Nama Mahasiswa Bimbingan">
+
+                        <button class="input-group-text">
+
+                            <i class="bi bi-search"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
 
             <table class="table table-bordered bg-white">
 
                 <thead>
+
                     <tr>
+
                         <th>Nama Mahasiswa</th>
+
                         <th>Program</th>
+
                         <th>Status</th>
+
+                        <th>Progress</th>
+
+                        <th>Action</th>
+
                     </tr>
+
                 </thead>
 
                 <tbody>
 
-                    @foreach($data as $item)
+                    @foreach($data as $aktivitas)
 
-                        <tr>
+                        @php
+                            $rowspan = $aktivitas->count();
+                        @endphp
 
-                            <td>{{ $item->name }}</td>
+                        @foreach($aktivitas as $index => $item)
 
-                            <td>{{ $item->nama_program }}</td>
+                            <tr>
 
-                            <td>{{ $item->status_program }}</td>
+                                @if($index == 0)
 
-                        </tr>
+                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
+
+                                        {{ $item->name }}
+
+                                    </td>
+
+                                    <td rowspan="{{ $rowspan }}" class="align-middle">
+
+                                        {{ $item->nama_program }}
+
+                                    </td>
+
+                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
+
+                                        {{ $item->status_program }}
+
+                                    </td>
+
+                                @endif
+
+                                <td>
+
+                                    <b>{{ $item->bulan }}</b><br>
+
+                                    {{ Str::limit($item->progress, 40) }}
+
+                                </td>
+
+                                @if($index == 0)
+
+                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
+
+                                        <a href="/detail-mahasiswa/{{ $item->id }}" class="btn btn-detail btn-sm">
+
+                                            Detail
+
+                                        </a>
+
+                                    </td>
+
+                                @endif
+
+                            </tr>
+
+                        @endforeach
 
                     @endforeach
 
