@@ -14,7 +14,7 @@
         body {
             height: 100%;
             margin: 0;
-        }   
+        }
 
         body {
             background: #ececec;
@@ -166,129 +166,37 @@
                     <div class="col-md-8">
 
                         <table class="table table-bordered bg-white">
-
                             <thead>
-
                                 <tr>
-
-                                    <th width="150">
-                                        Bulan
-                                    </th>
-
-                                    <th>
-                                        Progress
-                                    </th>
-
+                                    <th width="150">Bulan</th>
+                                    <th>Progress</th>
+                                    <th>Komentar</th>
+                                    <th width="150">Action</th>
                                 </tr>
-
                             </thead>
-
                             <tbody>
-
                                 @foreach($progress as $item)
-
-                                    @if(!$item->komentar)
-
-                                        <div class="modal fade" id="tambah{{ $item->id }}">
-
-                                            <div class="modal-dialog">
-
-                                                <div class="modal-content">
-
-                                                    <form action="/komentar/store" method="POST">
-
-                                                        @csrf
-
-                                                        <div class="modal-header">
-
-                                                            <h5>Tambah Komentar</h5>
-
-                                                        </div>
-
-                                                        <div class="modal-body">
-
-                                                            <input type="hidden" name="progress_id" value="{{ $item->id }}">
-
-                                                            <textarea name="komentar" class="form-control" rows="5"
-                                                                required></textarea>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-
-                                                            <button class="btn btn-primary">
-
-                                                                Simpan
-
-                                                            </button>
-
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    @endif
-
+                                    <tr>
+                                        <td>{{ $item->bulan }}</td>
+                                        <td>{{ $item->progress }}</td>
+                                        <td>{{ $item->komentar ?? '-' }}</td>
+                                        <td>
+                                            @if(!$item->komentar)
+                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#tambah{{ $item->id }}">
+                                                    Tambah Komentar
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#edit{{ $item->komentar_id }}">
+                                                    Edit Komentar
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
-
-                                @foreach($progress as $item)
-
-                                    @if($item->komentar)
-
-                                        <div class="modal fade" id="edit{{ $item->komentar_id }}">
-
-                                            <div class="modal-dialog">
-
-                                                <div class="modal-content">
-
-                                                    <form action="/komentar/update/{{ $item->komentar_id }}" method="POST">
-
-                                                        @csrf
-
-                                                        <div class="modal-header">
-
-                                                            <h5>Edit Komentar</h5>
-
-                                                        </div>
-
-                                                        <div class="modal-body">
-
-                                                            <textarea name="komentar" class="form-control"
-                                                                rows="5">{{ $item->komentar }}</textarea>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-
-                                                            <button class="btn btn-warning">
-
-                                                                Update
-
-                                                            </button>
-
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    @endif
-
-                                @endforeach
-
                             </tbody>
-
                         </table>
-
                     </div>
 
                 </div>
@@ -317,4 +225,4 @@
 
 </body>
 
-</html> 
+</html>
