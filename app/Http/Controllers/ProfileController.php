@@ -13,44 +13,38 @@ class ProfileController extends Controller
             ->where('id', session('user_id'))
             ->first();
 
-        return view('mahasiswa.profile', compact('user'));
+        return view('profile', compact('user'));
     }
 
     public function update(Request $request)
     {
-        $foto = null;
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email'
+        ]);
+
+        $data = [
+            'name'=>$request->name,
+            'email'=>$request->email
+        ];
 
         if($request->hasFile('foto')){
 
-            $foto = time().'.'.$request->foto->extension();
+            $namaFoto=time().'.'.$request->foto->extension();
 
-            $request->foto->move(
-                public_path('profile'),
-                $foto
-            );
+            $request->foto->move(public_path('foto'),$namaFoto);
 
-            DB::table('users')
-                ->where('id', session('user_id'))
-                ->update([
-                    'foto' => $foto,
-                    'updated_at' => now()
-                ]);
+            $data['foto']=$namaFoto;
         }
 
         DB::table('users')
-            ->where('id', session('user_id'))
-            ->update([
-
-                'name' => $request->name,
-                'email' => $request->email,
-                'updated_at' => now()
-
-            ]);
+            ->where('id',session('user_id'))
+            ->update($data);
 
         session([
-            'name' => $request->name
+            'name'=>$request->name
         ]);
 
-        return redirect('/profile');
+        return back()->with('success','Profil berhasil diperbarui');
     }
 }

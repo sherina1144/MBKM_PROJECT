@@ -92,7 +92,7 @@
 
             <div>
 
-                <a class="btn btn-light btn-sm rounded-pill">
+                <a href="/profile" class="btn btn-light rounded-pill">
 
                     {{ session('name') }}
 

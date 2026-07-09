@@ -117,8 +117,8 @@ Route::middleware('login')->group(function () {
 
     //detail dashboard
     Route::get(
-        '/detail/{id}',
-        [DosenController::class, 'detail']
+        '/detail-dashboard/{id}',
+        [DosenController::class, 'detailDashboard']
     );
 
     //detail informasi mahasiswa

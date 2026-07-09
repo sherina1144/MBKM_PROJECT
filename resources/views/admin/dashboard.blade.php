@@ -106,7 +106,7 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
 
                     {{ session('name') }}
 

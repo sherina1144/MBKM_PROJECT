@@ -118,12 +118,11 @@
 
         <div>
 
-            <a href="/profile"
-               class="btn btn-light btn-sm rounded-pill me-2">
+            <a href="/profile" class="btn btn-light rounded-pill">
 
-                {{ session('name') }}
+    {{ session('name') }}
 
-            </a>
+</a>
 
             <a href="/logout"
                class="btn btn-light btn-sm rounded-pill">

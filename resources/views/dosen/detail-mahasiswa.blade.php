@@ -14,7 +14,7 @@
         body {
             height: 100%;
             margin: 0;
-        }   
+        }
 
         body {
             background: #ececec;
@@ -32,33 +32,56 @@
         }
 
         .detail-wrapper {
-            width: 850px;
-            margin: 30px auto;
+            width: 96%;
+            margin: 25px auto;
         }
 
-        .form-control {
-            border: 1px solid #f4d233;
+        .info-bar {
+            background: #f4d233;
+            padding: 18px;
+            margin-bottom: 70px;
         }
 
-        .table th,
-        .table td {
-            border: 1px solid #f4d233;
+        .table {
+            background: white;
+        }
+
+        .table th {
+            background: #f4d233 !important;
+            text-align: center;
+            vertical-align: middle;
         }
 
         .table td {
             vertical-align: middle;
         }
 
-        .btn-kembali {
+        .btn-warning {
             background: #f4d233;
             border: none;
-            width: 120px;
+            color: black;
+        }
+
+        .btn-warning:hover {
+            background: #e3c11d;
+            color: black;
         }
 
         footer {
             background: #f4d233;
             text-align: center;
             padding: 10px;
+            margin-top: auto;
+        }
+
+        .back-btn {
+            font-size: 28px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .modal-header {
+            background: #f4d233;
         }
     </style>
 
@@ -89,12 +112,16 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
+
                     {{ session('name') }}
+
                 </a>
 
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
+
                     LOGOUT
+
                 </a>
 
             </div>
@@ -103,211 +130,265 @@
 
         <div class="detail-wrapper">
 
-            <div class="container mt-4">
+            <div class="mb-5">
 
-                <div class="row mb-3">
+                <a href="/informasi-mahasiswa" class="back-btn">
 
-                    <div class="col-md-3">
-                        Nama Mahasiswa
-                    </div>
+                    ←
 
-                    <div class="col-md-6">
+                </a>
 
-                        <input type="text" class="form-control" value="{{ $aktivitas->name }}" readonly>
+            </div>
 
-                    </div>
+            <div class="row text-center info-bar">
 
-                </div>
+                <div class="col">
 
-                <div class="row mb-3">
-
-                    <div class="col-md-3">
-                        Program 
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->nama_program }}" readonly>
-
-                    </div>
+                    {{ $aktivitas->name }}
 
                 </div>
 
-                <div class="row mb-3">
+                <div class="col">
 
-                    <div class="col-md-3">
-                        Status
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->status_program }}" readonly>
-
-                    </div>
+                    {{ $aktivitas->nama_program }}
 
                 </div>
 
-                <div class="row mb-4">
+                <div class="col">
 
-                    <div class="col-md-3">
-                        Learning Path
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->learning_path }}" readonly>
-
-                    </div>
+                    {{ $aktivitas->status_program }}
 
                 </div>
 
-                <div class="row justify-content-center">
+                <div class="col">
 
-                    <div class="col-md-8">
-
-                        <table class="table table-bordered bg-white">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th width="150">
-                                        Bulan
-                                    </th>
-
-                                    <th>
-                                        Progress
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                @foreach($progress as $item)
-
-                                    @if(!$item->komentar)
-
-                                        <div class="modal fade" id="tambah{{ $item->id }}">
-
-                                            <div class="modal-dialog">
-
-                                                <div class="modal-content">
-
-                                                    <form action="/komentar/store" method="POST">
-
-                                                        @csrf
-
-                                                        <div class="modal-header">
-
-                                                            <h5>Tambah Komentar</h5>
-
-                                                        </div>
-
-                                                        <div class="modal-body">
-
-                                                            <input type="hidden" name="progress_id" value="{{ $item->id }}">
-
-                                                            <textarea name="komentar" class="form-control" rows="5"
-                                                                required></textarea>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-
-                                                            <button class="btn btn-primary">
-
-                                                                Simpan
-
-                                                            </button>
-
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    @endif
-
-                                @endforeach
-
-                                @foreach($progress as $item)
-
-                                    @if($item->komentar)
-
-                                        <div class="modal fade" id="edit{{ $item->komentar_id }}">
-
-                                            <div class="modal-dialog">
-
-                                                <div class="modal-content">
-
-                                                    <form action="/komentar/update/{{ $item->komentar_id }}" method="POST">
-
-                                                        @csrf
-
-                                                        <div class="modal-header">
-
-                                                            <h5>Edit Komentar</h5>
-
-                                                        </div>
-
-                                                        <div class="modal-body">
-
-                                                            <textarea name="komentar" class="form-control"
-                                                                rows="5">{{ $item->komentar }}</textarea>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-
-                                                            <button class="btn btn-warning">
-
-                                                                Update
-
-                                                            </button>
-
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    @endif
-
-                                @endforeach
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-                <div class="text-center mt-4">
-
-                    <a href="/dosen" class="btn btn-kembali">
-
-                        Kembali
-
-                    </a>
+                    {{ $aktivitas->learning_path }}
 
                 </div>
 
             </div>
 
+            <table class="table table-bordered">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="120"></th>
+
+                        <th>Progress</th>
+
+                        <th width="260">
+
+                            Komentar
+
+                        </th>
+
+                        <th width="180">
+
+                            Action
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach($progress as $item)
+
+                        <tr>
+
+                            <td>
+
+                                {{ $item->bulan }}
+
+                            </td>
+
+                            <td>
+
+                                {{ $item->progress }}
+
+                            </td>
+
+                            <td>
+
+                                {{ $item->komentar ?? '-' }}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                @if(empty($item->komentar))
+
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#tambah{{ $item->id }}">
+
+                                        Tambah Komentar
+
+                                    </button>
+
+                                @else
+
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#edit{{ $item->komentar_id }}">
+
+                                        Edit Komentar
+
+                                    </button>
+
+                                @endif
+
+                            </td>
+
+                        </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
         </div>
 
     </div>
+
+    @foreach($progress as $item)
+
+        @if(empty($item->komentar))
+
+            <div class="modal fade" id="tambah{{ $item->id }}" tabindex="-1">
+
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+
+                        <form action="/komentar/store" method="POST">
+
+                            @csrf
+
+                            <div class="modal-header">
+
+                                <h5 class="modal-title">
+
+                                    Tambah Komentar
+
+                                </h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+
+                                </button>
+
+                            </div>
+
+                            <div class="modal-body">
+
+                                <input type="hidden" name="progress_id" value="{{ $item->id }}">
+
+                                <textarea name="komentar" rows="5" class="form-control" placeholder="Masukkan komentar..."
+                                    required></textarea>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+
+                                    Batal
+
+                                </button>
+
+                                <button type="submit" class="btn btn-warning">
+
+                                    Simpan
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        @endif
+
+    @endforeach
+
+
+
+    {{-- ===========================
+    MODAL EDIT KOMENTAR
+    =========================== --}}
+
+    @foreach($progress as $item)
+
+        @if(!empty($item->komentar))
+
+            <div class="modal fade" id="edit{{ $item->komentar_id }}" tabindex="-1">
+
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+
+                        <form action="/komentar/update/{{ $item->komentar_id }}" method="POST">
+
+                            @csrf
+
+                            <div class="modal-header">
+
+                                <h5 class="modal-title">
+
+                                    Edit Komentar
+
+                                </h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+
+                                </button>
+
+                            </div>
+
+                            <div class="modal-body">
+
+                                <textarea name="komentar" rows="5" class="form-control"
+                                    required>{{ $item->komentar }}</textarea>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+
+                                    Batal
+
+                                </button>
+
+                                <button type="submit" class="btn btn-warning">
+
+                                    Update
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        @endif
+
+    @endforeach
+
+
 
     <footer>
 
@@ -315,6 +396,8 @@
 
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
-</html> 
+</html>

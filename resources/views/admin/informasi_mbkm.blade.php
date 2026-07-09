@@ -105,7 +105,7 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
 
                     {{ session('name') }}
 
@@ -201,7 +201,7 @@
 
                             <td class="text-center">
 
-                                <img  src="{{ asset('images/'.$item->gambar) }}" width="100">
+                                <img src="{{ asset('images/' . $item->gambar) }}" width="100">
 
                             </td>
 

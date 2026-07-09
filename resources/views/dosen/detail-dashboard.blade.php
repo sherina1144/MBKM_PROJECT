@@ -89,8 +89,10 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
+
                     {{ session('name') }}
+
                 </a>
 
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
@@ -170,8 +172,6 @@
                                 <tr>
                                     <th width="150">Bulan</th>
                                     <th>Progress</th>
-                                    <th>Komentar</th>
-                                    <th width="150">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -179,23 +179,10 @@
                                     <tr>
                                         <td>{{ $item->bulan }}</td>
                                         <td>{{ $item->progress }}</td>
-                                        <td>{{ $item->komentar ?? '-' }}</td>
-                                        <td>
-                                            @if(!$item->komentar)
-                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#tambah{{ $item->id }}">
-                                                    Tambah Komentar
-                                                </button>
-                                            @else
-                                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#edit{{ $item->komentar_id }}">
-                                                    Edit Komentar
-                                                </button>
-                                            @endif
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
                     </div>
 

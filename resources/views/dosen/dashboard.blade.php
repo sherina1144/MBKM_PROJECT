@@ -116,12 +116,12 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
 
                     {{ session('name') }}
 
                 </a>
-
+                
                 <a href="/logout" class="btn btn-light btn-sm rounded-pill">
 
                     LOGOUT
@@ -303,7 +303,7 @@
 
                                     <td rowspan="{{ $rowspan }}" class="align-middle text-center">
 
-                                        <a href="/detail-mahasiswa/{{ $item->id }}" class="btn btn-detail btn-sm">
+                                        <a href="/detail-dashboard/{{ $item->id }}" class="btn btn-detail btn-sm">
 
                                             Detail
 

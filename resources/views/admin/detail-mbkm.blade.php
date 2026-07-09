@@ -85,7 +85,7 @@
 
             <div>
 
-                <a href="/profile" class="btn btn-light btn-sm rounded-pill me-2">
+                <a href="/profile" class="btn btn-light rounded-pill">
 
                     {{ session('name') }}
 
@@ -103,135 +103,135 @@
 
         <div class="detail-wrapper">
 
-        <div class="container mt-4">
+            <div class="container mt-4">
 
-            <div class="row mb-3">
+                <div class="row mb-3">
 
-                <div class="col-md-3">
+                    <div class="col-md-3">
 
-                    Nama Mahasiswa
+                        Nama Mahasiswa
 
-                </div>
+                    </div>
 
-                <div class="col-md-6">
+                    <div class="col-md-6">
 
-                    <input type="text" class="form-control" value="{{ $aktivitas->name }}" readonly>
+                        <input type="text" class="form-control" value="{{ $aktivitas->name }}" readonly>
 
-                </div>
-
-            </div>
-
-            <div class="row mb-3">
-
-                <div class="col-md-3">
-
-                    Program
+                    </div>
 
                 </div>
 
-                <div class="col-md-6">
+                <div class="row mb-3">
 
-                    <input type="text" class="form-control" value="{{ $aktivitas->nama_program }}" readonly>
+                    <div class="col-md-3">
 
-                </div>
+                        Program
 
-            </div>
+                    </div>
 
-            <div class="row mb-3">
+                    <div class="col-md-6">
 
-                <div class="col-md-3">
+                        <input type="text" class="form-control" value="{{ $aktivitas->nama_program }}" readonly>
 
-                    Status
-
-                </div>
-
-                <div class="col-md-6">
-
-                    <input type="text" class="form-control" value="{{ $aktivitas->status_program }}" readonly>
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="row mb-3">
 
-            <div class="row mb-4">
+                    <div class="col-md-3">
 
-                <div class="col-md-3">
+                        Status
 
-                    Learning Path
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <input type="text" class="form-control" value="{{ $aktivitas->status_program }}" readonly>
+
+                    </div>
 
                 </div>
 
-                <div class="col-md-6">
+                <div class="row mb-4">
 
-                    <input type="text" class="form-control" value="{{ $aktivitas->learning_path }}" readonly>
+                    <div class="col-md-3">
+
+                        Learning Path
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <input type="text" class="form-control" value="{{ $aktivitas->learning_path }}" readonly>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="row justify-content-center">
 
-            <div class="row justify-content-center">
+                    <div class="col-md-8">
 
-                <div class="col-md-8">
+                        <table class="table table-bordered bg-white">
 
-                    <table class="table table-bordered bg-white">
-
-                        <thead>
-
-                            <tr>
-
-                                <th width="150">
-                                    Bulan
-                                </th>
-
-                                <th>
-                                    Progress
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @foreach($progress as $item)
+                            <thead>
 
                                 <tr>
 
-                                    <td class="text-center">
+                                    <th width="150">
+                                        Bulan
+                                    </th>
 
-                                        {{ $item->bulan }}
-
-                                    </td>
-
-                                    <td>
-
-                                        {{ $item->progress }}
-
-                                    </td>
+                                    <th>
+                                        Progress
+                                    </th>
 
                                 </tr>
 
-                            @endforeach
+                            </thead>
 
-                        </tbody>
+                            <tbody>
 
-                    </table>
+                                @foreach($progress as $item)
+
+                                    <tr>
+
+                                        <td class="text-center">
+
+                                            {{ $item->bulan }}
+
+                                        </td>
+
+                                        <td>
+
+                                            {{ $item->progress }}
+
+                                        </td>
+
+                                    </tr>
+
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-4">
+
+                    <a href="/admin" class="btn btn-kembali">
+
+                        Kembali
+
+                    </a>
 
                 </div>
 
             </div>
-
-            <div class="text-center mt-4">
-
-                <a href="/admin" class="btn btn-kembali">
-
-                    Kembali
-
-                </a>
-
-            </div>
-
-        </div>
         </div>
 
     </div>
