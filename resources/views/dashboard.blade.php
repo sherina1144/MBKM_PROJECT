@@ -128,15 +128,6 @@
                     <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-2 mt-md-0">
-                <a href="{{ url('/profile') }}"
-                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
-                    {{ session('name') }}
-                </a>
-                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
-                    LOGOUT
-                </a>
-            </div>
         </div>
     </nav>
 

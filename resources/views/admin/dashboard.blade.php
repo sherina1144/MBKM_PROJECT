@@ -186,19 +186,27 @@
                     <img src="{{ asset('images/TI.png') }}" alt="TI">
                     <img src="{{ asset('images/mbkm.png') }}" alt="MBKM">
                 </div>
+                <div class="d-none d-lg-block border-start mx-2"
+                    style="height: 40px; border-color: rgba(0,0,0,0.15) !important;"></div>
                 <div class="brand-text">
                     <small class="d-block lh-1">Sistem Informasi Merdeka Belajar</small>
                     <small class="d-block lh-1 mb-1">Teknik Informatika</small>
                     <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-2 mt-md-0">
-                <a href="{{ url('/profile') }}"
-                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
-                    {{ session('name') }}
-                </a>
-                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
-                    Logout
+
+            <div class="d-flex align-items-center gap-3 mt-2 mt-md-0">
+                <div class="d-flex align-items-center gap-2 text-dark">
+
+                    <img src="{{ !empty($user->foto) ? asset('foto/' . $user->foto) : asset('images/default-user.png') }}"
+                        class="rounded-circle border shadow-sm" style="width:40px;height:40px;object-fit:cover;">
+
+                    <span>{{ session('name') }}</span>
+
+                </div>
+
+                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 shadow-sm">
+                    LOGOUT
                 </a>
             </div>
         </div>

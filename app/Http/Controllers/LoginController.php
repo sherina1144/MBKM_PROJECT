@@ -14,26 +14,27 @@ class LoginController extends Controller
             ->where('password', $request->password)
             ->first();
 
-        if(!$user){
+        if (!$user) {
 
             return redirect('/login')
-                ->with('error','Email atau Password Salah');
+                ->with('error', 'Email atau Password Salah');
 
         }
 
         session([
             'user_id' => $user->id,
             'name' => $user->name,
-            'role' => $user->role
+            'role' => $user->role,
+            'foto' => $user->foto
         ]);
 
-        if($user->role == 'admin'){
+        if ($user->role == 'admin') {
 
             return redirect('/admin');
 
         }
 
-        if($user->role == 'dosen'){
+        if ($user->role == 'dosen') {
 
             return redirect('/dosen');
 
