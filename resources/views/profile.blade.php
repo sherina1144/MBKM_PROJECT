@@ -118,6 +118,17 @@
             color: #ffffff;
         }
 
+        .btn-logout {
+            background-color: #a4abb2;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
         footer {
             background-color: #f4d233;
             color: #000000;
@@ -163,7 +174,8 @@
                         class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
                         {{ session('name') }}
                     </a>
-                    <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
+                    <a href="{{ url('/logout') }}"
+                        class="btn btn-logout btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
                         LOGOUT
                     </a>
                 </div>

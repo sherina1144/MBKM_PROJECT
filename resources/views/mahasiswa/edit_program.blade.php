@@ -83,6 +83,17 @@
             background:#e5c31d;
         }
 
+        .btn-logout {
+            background-color: #a4abb2;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
         footer{
             background:#f4d233;
             text-align:center;
@@ -118,17 +129,20 @@
 
         <div>
 
-            <a href="/profile" class="btn btn-light rounded-pill">
+              <a href="{{ url('/profile') }}" class="d-flex align-items-center gap-2 text-dark text-decoration-none">
+                    @if(session('foto'))
+                        <img src="{{ asset('foto/' . session('foto')) }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @else
+                        <img src="{{ asset('images/user.png') }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @endif
+                    <span>{{ session('name') }}</span>
+                </a>
 
-    {{ session('name') }}
-
-</a>
-
-            <a href="/logout"
-               class="btn btn-light btn-sm rounded-pill">
-
-                LOGOUT
-
+            <a href="{{ url('/logout') }}"
+                 class="btn btn-logout btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
+                     LOGOUT
             </a>
 
         </div>

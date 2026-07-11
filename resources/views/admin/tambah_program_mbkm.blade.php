@@ -128,6 +128,17 @@
             color: #1e293b;
         }
 
+        .btn-logout {
+            background-color: #a4abb2;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
         footer {
             background-color: #f4d233;
             color: #000000;
@@ -167,11 +178,17 @@
                 </div>
             </div>
             <div class="d-flex gap-2 mt-2 mt-md-0">
-                <a href="{{ url('/profile') }}"
-                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
-                    {{ session('name') }}
+                <a href="{{ url('/profile') }}" class="d-flex align-items-center gap-2 text-dark text-decoration-none">
+                    @if(session('foto'))
+                        <img src="{{ asset('foto/' . session('foto')) }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @else
+                        <img src="{{ asset('images/user.png') }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @endif
+                    <span>{{ session('name') }}</span>
                 </a>
-                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
+                <a href="{{ url('/logout') }}" class="btn btn-logout btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
                     LOGOUT
                 </a>
             </div>
@@ -223,7 +240,7 @@
                     </div>
 
                     <div class="text-center gap-2">
-                        <button type="submit" class="btn btn-primary-custom shadow-sm me-2">
+                        <button type="submit" class="btn btn-primary shadow-sm me-2">
                             Simpan
                         </button>
                         <a href="{{ url('/informasi-mbkm') }}" class="btn btn-secondary-custom shadow-sm">

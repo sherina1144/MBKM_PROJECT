@@ -101,7 +101,7 @@
         }
 
         .btn-primary-custom {
-            background-color: #212529;
+            background-color: #0d6efd;
             color: #ffffff;
             border: none;
             font-weight: 600;
@@ -113,7 +113,7 @@
         }
 
         .btn-primary-custom:hover {
-            background-color: #000000;
+            background-color: #0b5ed7;
             color: #ffffff;
         }
 
@@ -124,6 +124,17 @@
             font-weight: 600;
             padding: 15px;
             margin-top: auto;
+        }
+
+        .btn-logout {
+            background-color: #a4abb2;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc3545;
+            color: #ffffff;
         }
 
         @media (max-width: 768px) {
@@ -161,17 +172,23 @@
                 </div>
             </div>
             <div class="d-flex gap-2 mt-2 mt-md-0">
-                <a href="{{ url('/profile') }}"
-                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
-                    {{ session('name') }}
+                <a href="{{ url('/profile') }}" class="d-flex align-items-center gap-2 text-dark text-decoration-none">
+                    @if(session('foto'))
+                        <img src="{{ asset('foto/' . session('foto')) }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @else
+                        <img src="{{ asset('images/user.png') }}" class="rounded-circle border shadow-sm"
+                            style="width:40px;height:40px;object-fit:cover;" alt="Foto Profil">
+                    @endif
+                    <span>{{ session('name') }}</span>
                 </a>
-                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
+                <a href="{{ url('/logout') }}" class="btn btn-logout btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
                     LOGOUT
                 </a>
             </div>
         </div>
     </nav>
-    
+
     <div class="nav-menu-container">
         <div class="container d-flex gap-2 flex-wrap">
             <a href="{{ url('/mahasiswa') }}">Dashboard</a>
