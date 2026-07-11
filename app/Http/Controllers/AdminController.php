@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $totalAktivitas = DB::table('aktivitas_mbkm')->count();
 
@@ -18,6 +19,8 @@ class AdminController extends Controller
             ->where('status_program', 'Selesai')
             ->count();
 
+        $keyword = $request->input('search');
+
         $aktivitas = DB::table('aktivitas_mbkm')
             ->join('users', 'aktivitas_mbkm.user_id', '=', 'users.id')
             ->join('program_mbkm', 'aktivitas_mbkm.program_id', '=', 'program_mbkm.id')
@@ -27,6 +30,9 @@ class AdminController extends Controller
                 'aktivitas_mbkm.status_program',
                 'aktivitas_mbkm.id'
             )
+            ->when($keyword, function ($query, $keyword) {
+                return $query->where('users.name', 'LIKE', "%{$keyword}%");
+            })
             ->get();
 
         return view(
@@ -67,5 +73,4 @@ class AdminController extends Controller
             )
         );
     }
-
 }

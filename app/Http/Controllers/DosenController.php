@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class DosenController extends Controller
 {
-    public function index()
+    public function index(Request $request) 
     {
         $totalAktivitas = DB::table('aktivitas_mbkm')->count();
 
@@ -19,11 +19,16 @@ class DosenController extends Controller
             ->where('status_program', 'Selesai')
             ->count();
 
-        $data = DB::table('aktivitas_mbkm')
+        $query = DB::table('aktivitas_mbkm')
             ->join('users', 'aktivitas_mbkm.user_id', '=', 'users.id')
             ->join('program_mbkm', 'aktivitas_mbkm.program_id', '=', 'program_mbkm.id')
-            ->leftJoin('progress_mbkm', 'aktivitas_mbkm.id', '=', 'progress_mbkm.aktivitas_id')
-            ->select(
+            ->leftJoin('progress_mbkm', 'aktivitas_mbkm.id', '=', 'progress_mbkm.aktivitas_id');
+
+        if ($request->search) {
+            $query->where('users.name', 'like', '%' . $request->search . '%');
+        }
+
+        $data = $query->select(
                 'aktivitas_mbkm.id',
                 'users.name',
                 'program_mbkm.nama_program',

@@ -19,32 +19,37 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email'
+            'name' => 'required',
+            'email' => 'required|email'
         ]);
 
+        // Ambil data user saat ini untuk perbandingan
+        $user = DB::table('users')->where('id', session('user_id'))->first();
+
         $data = [
-            'name'=>$request->name,
-            'email'=>$request->email
+            'name' => $request->name,
+            'email' => $request->email
         ];
 
-        if($request->hasFile('foto')){
+        $hasFile = $request->hasFile('foto');
 
-            $namaFoto=time().'.'.$request->foto->extension();
+        // Cek apakah ada perubahan pada nama, email, atau apakah ada foto baru
+        if ($user->name == $request->name && $user->email == $request->email && !$hasFile) {
+            return back()->with('error', 'Mohon tentukan perubahan');
+        }
 
-            $request->foto->move(public_path('foto'),$namaFoto);
-
-            $data['foto']=$namaFoto;
+        if ($hasFile) {
+            $namaFoto = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('foto'), $namaFoto);
+            $data['foto'] = $namaFoto;
         }
 
         DB::table('users')
-            ->where('id',session('user_id'))
+            ->where('id', session('user_id'))
             ->update($data);
 
-        session([
-            'name'=>$request->name
-        ]);
+        session(['name' => $request->name]);
 
-        return back()->with('success','Profil berhasil diperbarui');
+        return back()->with('success', 'Profil berhasil diperbarui');
     }
 }

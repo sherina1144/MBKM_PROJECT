@@ -1,212 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progress MBKM</title>
 
-    <meta charset="UTF-8">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        html,
         body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            background: #ececec;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            color: #212529;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        .wrapper {
-            flex: 1;
+        .navbar-custom {
+            background-color: #f4d233;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
         }
 
-        .header {
-            background: #f4d233;
-            padding: 15px 20px;
+        .logo-group img {
+            height: 45px;
+            object-fit: contain;
         }
 
-        .menu {
-            background: #f4d233;
-            padding: 0 20px 15px;
+        .brand-text small {
+            font-size: 11px;
+            color: #495057;
+            font-weight: 500;
         }
 
-        .menu a {
+        .brand-text strong {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .nav-menu-container {
+            background-color: #f4d233;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-menu-container a {
             text-decoration: none;
-            color: black;
-            margin-right: 20px;
+            color: #495057;
             font-weight: 500;
             font-size: 14px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
         }
 
-        .form-card {
-            width: 450px;
-            margin: 40px auto;
-            border: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+        .nav-menu-container a:hover {
+            color: #000000;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-menu-container a.active {
+            color: #000000;
+            background-color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card-custom {
+            max-width: 550px;
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background-color: #f8f9fa;
         }
 
         .logo-progress {
-            width: 90px;
+            width: 80px;
+            height: auto;
+            object-fit: contain;
         }
 
-        .form-control {
-            border: 1px solid #f4d233;
+        .form-control-custom {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
         }
 
-        .form-control:focus {
-            box-shadow: none;
+        .form-control-custom:focus {
+            box-shadow: 0 0 0 3px rgba(244, 210, 51, 0.25);
             border-color: #f4d233;
         }
 
-        .btn-tambah {
-            background: #2d62e8;
-            color: white;
+        .btn-primary-custom {
+            background-color: #212529;
+            color: #ffffff;
             border: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: auto;
         }
 
-        .btn-tambah:hover {
-            background: #1f4fc4;
-            color: white;
+        .btn-primary-custom:hover {
+            background-color: #000000;
+            color: #ffffff;
         }
 
         footer {
-            background: #f4d233;
-            text-align: center;
-            padding: 10px;
+            background-color: #f4d233;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 15px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .logo-group img {
+                height: 32px;
+            }
+
+            .brand-text strong {
+                font-size: 12px;
+            }
+
+            .nav-menu-container a {
+                font-size: 13px;
+                padding: 4px 10px;
+            }
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="wrapper">
-
-        <div class="header d-flex justify-content-between align-items-center">
-
-            <div class="d-flex align-items-center">
-
-                <img src="{{ asset('images/PNC.png') }}" height="50" style="padding: 3px;">
-                <img src="{{ asset('images/JKB.png') }}" height="50" style="padding: 3px;">
-                <img src="{{ asset('images/TI.png') }}" height="50" style="padding: 3px;">
-                <img src="{{ asset('images/mbkm.png') }}" height="50" style="padding: 3px;">
-
-                <div class="ms-3">
-
-                    <small>Sistem Informasi MBKM Prodi</small><br>
-                    <small>Teknik Informatika</small><br>
-                    <strong>POLITEKNIK NEGERI CILACAP</strong>
-
+    <nav class="navbar navbar-custom">
+        <div class="container">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <div class="logo-group d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/PNC.png') }}" alt="PNC">
+                    <img src="{{ asset('images/JKB.png') }}" alt="JKB">
+                    <img src="{{ asset('images/TI.png') }}" alt="TI">
+                    <img src="{{ asset('images/mbkm.png') }}" alt="MBKM">
                 </div>
-
+                <div class="brand-text">
+                    <small class="d-block lh-1">Sistem Informasi Merdeka Belajar</small>
+                    <small class="d-block lh-1 mb-1">Teknik Informatika</small>
+                    <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
+                </div>
             </div>
-
-            <div>
-
-                <a href="/profile" class="btn btn-light rounded-pill">
-
+            <div class="d-flex gap-2 mt-2 mt-md-0">
+                <a href="{{ url('/profile') }}"
+                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
                     {{ session('name') }}
-
                 </a>
-
-                <a href="/logout" class="btn btn-light rounded-pill">
-
-                    Logout
-
+                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
+                    LOGOUT
                 </a>
-
             </div>
-
         </div>
-
-        <div class="menu">
-
-            <a href="/mahasiswa">
-                Dashboard
-            </a>
-
-            <a href="/aktivitas">
-                Aktivitas MBKM
-            </a>
-
-            <a href="/progress">
-                <b>Progress</b>
-            </a>
-
+    </nav>
+    
+    <div class="nav-menu-container">
+        <div class="container d-flex gap-2 flex-wrap">
+            <a href="{{ url('/mahasiswa') }}">Dashboard</a>
+            <a href="{{ url('/aktivitas') }}">Aktivitas MBKM</a>
+            <a href="{{ url('/progress') }}" class="active">Progress</a>
         </div>
+    </div>
 
-        <div class="card form-card">
-
-            <div class="card-body p-4">
-
-                <div class="text-center">
-
-                    <img src="{{ asset('images/PNC.png') }}" class="logo-progress">
-
+    <div class="container my-5 flex-grow-1 d-flex align-items-center justify-content-center">
+        <div class="card form-card-custom w-100">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <img src="{{ asset('images/PNC.png') }}" class="logo-progress" alt="Logo PNC">
+                    <h4 class="fw-bold mt-3 mb-1" style="color: #000000;">Form Progress</h4>
+                    <p class="text-muted small">Silakan isi laporan perkembangan bulanan Anda</p>
                 </div>
 
-                <h4 class="text-center mt-3 mb-4">
-
-                    Form Progress
-
-                </h4>
-
-                <form action="/simpan-progress" method="POST">
-
+                <form action="{{ url('/simpan-progress') }}" method="POST">
                     @csrf
-
                     <input type="hidden" name="aktivitas_id" value="{{ $aktivitas->id }}">
 
                     <div class="mb-3">
-
-                        <label class="form-label">
-
-                            Bulan
-
-                        </label>
-
-                        <input type="text" name="bulan" class="form-control" placeholder="Contoh: September 2026"
-                            required>
-
+                        <label class="form-label fw-semibold small text-secondary">Bulan</label>
+                        <input type="text" name="bulan" class="form-control form-control-custom"
+                            placeholder="Contoh: September 2026" required>
                     </div>
 
                     <div class="mb-4">
-
-                        <label class="form-label">
-
-                            Isi Progress
-
-                        </label>
-
-                        <textarea name="progress" rows="5" class="form-control"
-                            placeholder="Tuliskan progress yang telah dikerjakan" required></textarea>
-
+                        <label class="form-label fw-semibold small text-secondary">Isi Progress</label>
+                        <textarea name="progress" rows="5" class="form-control form-control-custom"
+                            placeholder="Tuliskan progress yang telah dikerjakan..." required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-tambah w-100">
-
-                        Tambah
-
-                    </button>
-
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary-custom shadow-sm">
+                            Tambah Progress
+                        </button>
+                    </div>
                 </form>
-
             </div>
-
         </div>
-
     </div>
 
-    <footer>
-
-        © 2026 Politeknik Negeri Cilacap
-
+    <footer class="text-center">
+        &copy; 2026 Politeknik Negeri Cilacap
     </footer>
 
 </body>

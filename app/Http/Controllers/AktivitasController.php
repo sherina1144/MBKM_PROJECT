@@ -87,26 +87,20 @@ class AktivitasController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Hanya validasi status_program karena data ini saja yang dikirim dari dropdown
         $request->validate([
-
-            'program_id' => 'required',
-            'status_program' => 'required',
-            'learning_path' => 'required'
-
+            'status_program' => 'required|in:Berlangsung,Selesai',
         ]);
 
+        // Update status_program berdasarkan ID aktivitas
         DB::table('aktivitas_mbkm')
             ->where('id', $id)
             ->update([
-
-                'program_id' => $request->program_id,
                 'status_program' => $request->status_program,
-                'learning_path' => $request->learning_path,
                 'updated_at' => now()
-
             ]);
 
-        return redirect('/aktivitas');
+        return redirect('/aktivitas')->with('success', 'Status program berhasil diperbarui!');
     }
 
     public function formProgress()
@@ -153,7 +147,7 @@ class AktivitasController extends Controller
         ]);
 
 
-        
+
         return redirect('/aktivitas');
     }
 }

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login MBKM - POLITEKNIK NEGERI CILACAP</title>
+    <title>Register MBKM - POLITEKNIK NEGERI CILACAP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: #f8f9fa;
             font-family: 'Inter', sans-serif;
             display: flex;
             flex-direction: column;
@@ -17,7 +17,7 @@
         }
 
         .navbar-custom {
-            background-color: #f4d233;
+            background-color: #f3d130;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             padding: 12px 0;
         }
@@ -40,12 +40,24 @@
 
         .auth-card {
             background-color: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e9ecef;
             border-radius: 16px;
-            padding: 40px;
+            padding: 48px 40px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             width: 100%;
             max-width: 420px;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem !important;
         }
 
         .form-control {
@@ -56,55 +68,37 @@
         }
 
         .form-control:focus {
-            border-color: #f4d233;
-            box-shadow: 0 0 0 3px rgba(244, 210, 51, 0.2);
+            border-color: #f3d130;
+            box-shadow: 0 0 0 3px rgba(243, 209, 48, 0.2);
         }
 
-        .btn-auth {
-            padding: 10px;
+        .btn-submit-auth {
+            background-color: #212529;
+            color: #ffffff;
+            padding: 10px 25px;
             font-weight: 600;
             border-radius: 8px;
             transition: 0.3s;
+            display: inline-block;
+            border: none;
             width: 100%;
         }
 
-        .btn-login {
-            background-color: #212529;
-            color: #ffffff;
-            border: none;
-        }
-
-        .btn-login:hover {
+        .btn-submit-auth:hover {
             background-color: #000000;
             color: #ffffff;
         }
 
-        .btn-register-link {
-            background-color: #f8f9fa;
-            color: #495057;
-            text-decoration: none;
-            border: 1px solid #ced4da;
-            margin-top: 15px;
-            display: block;
-            text-align: center;
-        }
-
-        .btn-register-link:hover {
-            background-color: #e2e6ea;
-            color: #212529;
-        }
-
         footer {
-            background-color: #f4d233;
+            background-color: #f3d130;
             color: #000000;
             padding: 15px;
             font-weight: 600;
             font-size: 13px;
             margin-top: auto;
-            text-align: center;
         }
 
-                .login-link {
+        .login-link {
             font-size: 13px;
             color: #495057;
             margin-top: 15px;
@@ -146,40 +140,61 @@
 
     <div class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
         <div class="auth-card text-center">
-            <img src="{{ asset('images/PNC.png') }}" alt="Logo PNC"
-                style="height: 70px; width: auto; object-fit: contain;" class="mb-4">
-            <h5 class="fw-bold mb-4">Masuk ke Sistem</h5>
+            <img src="{{ asset('images/PNC.png') }}" alt="Logo" style="height: 60px; width: auto; object-fit: contain;"
+                class="mb-4">
+            <h5 class="fw-bold mb-4">Daftar Akun Baru</h5>
 
-            @if(session('error'))
-                <div class="alert alert-danger py-2 small rounded-3">{{ session('error') }}</div>
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success py-2 small rounded-3">{{ session('success') }}</div>
+            @if($errors->any())
+                <div class="alert alert-danger py-2 small text-start">
+                    <ul class="mb-0 ps-3">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
-            <form action="/proses-login" method="POST" class="text-start">
+            <form action="/register/store" method="POST" class="text-start">
                 @csrf
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Nama Lengkap</label>
+                    <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required
+                        value="{{ old('name') }}">
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label fw-semibold small">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="nama@pnc.ac.id" required>
+                    <input type="email" name="email" class="form-control" placeholder="nama@pnc.ac.id" required
+                        value="{{ old('email') }}">
                 </div>
-                <div class="mb-4">
+
+                <div class="mb-3">
                     <label class="form-label fw-semibold small">Kata Sandi</label>
-                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    <input type="password" name="password" class="form-control" placeholder="Masukan sandi" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold small">Daftar Sebagai</label>
+                    <select name="role" class="form-control" required>
+                        <option value="" disabled selected>Pilih Role</option>
+                        <option value="mahasiswa">Mahasiswa</option>
+                        <option value="dosen">Dosen</option>
+                    </select>
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-auth btn-login shadow-sm">MASUK</button><br>
-
-                    <div class="text-center login-link">
-                        Belum Punya Akun? <a href="{{ url('/register') }}">Daftar Sekarang</a>
-                    </div>
+                    <button type="submit" class="btn btn-submit-auth shadow-sm">DAFTAR</button>
                 </div>
             </form>
+
+            <div class="text-center login-link">
+                Sudah punya akun? <a href="{{ url('/login') }}">Masuk di sini</a>
+            </div>
         </div>
     </div>
 
-    <footer>
+    <footer class="text-center">
         &copy; 2026 Politeknik Negeri Cilacap
     </footer>
 

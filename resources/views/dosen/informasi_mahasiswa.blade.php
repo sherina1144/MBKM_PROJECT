@@ -1,268 +1,245 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Mahasiswa</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        html,
         body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            background: #ececec;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            color: #212529;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        .wrapper {
-            flex: 1;
+        .navbar-custom {
+            background-color: #f4d233;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
         }
 
-        .header {
-            background: #f4d233;
-            padding: 15px 20px;
+        .logo-group img {
+            height: 45px;
+            object-fit: contain;
         }
 
-        .menu {
-            background: #f4d233;
-            padding: 0 20px 15px;
+        .brand-text small {
+            font-size: 11px;
+            color: #495057;
+            font-weight: 500;
         }
 
-        .menu a {
-            text-decoration: none;
-            color: black;
-            margin-right: 20px;
+        .brand-text strong {
             font-size: 14px;
+            color: #000000;
         }
 
-        .table th {
-            background: #f4d233 !important;
+        .nav-menu-container {
+            background-color: #f4d233;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-menu-container a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu-container a:hover {
+            color: #000000;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-menu-container a.active {
+            color: #000000;
+            background-color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-custom {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .table-custom th {
+            background-color: #f4d233 !important;
+            color: #000000 !important;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 16px;
             text-align: center;
-        }
-
-        .btn-detail {
-            background: #f4d233;
             border: none;
         }
 
+        .table-custom td {
+            padding: 12px 16px;
+            font-size: 14px;
+            vertical-align: middle;
+            color: #334155;
+        }
+
+        .table-custom tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #f1f1f1 !important;
+        }
+
+        .search-box-custom {
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .form-control-custom {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 14px;
+        }
+
+        .btn-outline-dark-custom {
+            background-color: transparent;
+            color: #212529;
+            border: 1px solid #212529;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-outline-dark-custom:hover {
+            background-color: #212529;
+            color: #ffffff;
+        }
+
         footer {
-            background: #f4d233;
-            padding: 10px;
-            text-align: center;
+            background-color: #f4d233;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 15px;
+            margin-top: auto;
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="wrapper">
-
-        <div class="header d-flex justify-content-between">
-
-            <div class="d-flex align-items-center">
-
-                <img src="{{ asset('images/PNC.png') }}" height="50">
-
-                <img src="{{ asset('images/JKB.png') }}" height="50">
-
-                <img src="{{ asset('images/TI.png') }}" height="50">
-
-                <img src="{{ asset('images/mbkm.png') }}" height="50">
-
-                <div class="ms-3">
-
-                    <small>Sistem Informasi MBKM Prodi</small><br>
-
-                    <small>Teknik Informatika</small><br>
-
-                    <strong>POLITEKNIK NEGERI CILACAP</strong>
-
+    <nav class="navbar navbar-custom">
+        <div class="container">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <div class="logo-group d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/PNC.png') }}" alt="PNC">
+                    <img src="{{ asset('images/JKB.png') }}" alt="JKB">
+                    <img src="{{ asset('images/TI.png') }}" alt="TI">
+                    <img src="{{ asset('images/mbkm.png') }}" alt="MBKM">
                 </div>
-
-            </div>
-
-            <div>
-
-                <a href="/profile" class="btn btn-light rounded-pill">
-
-                    {{ session('name') }}
-
-                </a>
-
-                <a href="/logout" class="btn btn-light btn-sm rounded-pill">
-
-                    Logout
-
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="menu">
-
-            <a href="/dosen">
-
-                Dashboard
-
-            </a>
-
-            <a href="/informasi-mahasiswa">
-
-                <b>Informasi Mahasiswa</b>
-
-            </a>
-
-        </div>
-
-        <div class="container-fluid mt-4">
-
-            <h6 class="fw-bold">
-
-                Informasi Mahasiswa
-
-            </h6>
-
-            <form method="GET">
-
-                <div class="row mb-3">
-
-                    <div class="col-md-4 ms-auto">
-
-                        <div class="input-group">
-
-                            <input type="text" name="search" class="form-control" placeholder="Cari Nama Mahasiswa"
-                                value="{{ request('search') }}">
-
-                            <button class="btn btn-warning">
-
-                                🔍
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
+                <div class="brand-text">
+                    <small class="d-block lh-1">Sistem Informasi Merdeka Belajar</small>
+                    <small class="d-block lh-1 mb-1">Teknik Informatika</small>
+                    <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
                 </div>
-
-            </form>
-
-            <table class="table table-bordered bg-white">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Nama Mahasiswa</th>
-
-                        <th>Program</th>
-
-                        <th>Progress</th>
-
-                        <th>Komentar</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @foreach($mahasiswa as $aktivitas)
-
-                        @php
-
-                            $rowspan = $aktivitas->count();
-
-                            $first = true;
-
-                        @endphp
-
-                        @foreach($aktivitas as $item)
-
-                            <tr>
-
-                                @if($first)
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        {{ $item->name }}
-
-                                    </td>
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        {{ $item->nama_program }}
-
-                                    </td>
-
-                                @endif
-
-                                <td>
-
-                                    <b>{{ $item->bulan }}</b><br>
-
-                                    {{ Str::limit($item->progress, 25) }}
-
-                                </td>
-
-                                <td>
-
-                                    {{ $item->komentar ?? '-' }}
-
-                                </td>
-
-                                @if($first)
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        <a href="/detail-mahasiswa/{{ $item->id }}" class="btn btn-detail btn-sm">
-
-                                            Detail
-
-                                        </a>
-
-                                    </td>
-
-                                @endif
-
-                            </tr>
-
-                            @php
-
-                                $first = false;
-
-                            @endphp
-
-                        @endforeach
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
+            </div>
+            <div class="d-flex gap-2 mt-2 mt-md-0">
+                <a href="{{ url('/profile') }}"
+                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">{{ session('name') }}</a>
+                <a href="{{ url('/logout') }}"
+                    class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">LOGOUT</a>
+            </div>
         </div>
+    </nav>
 
+    <div class="nav-menu-container">
+        <div class="container d-flex gap-2 flex-wrap">
+            <a href="/dosen" class="{{ Request::is('dosen') ? 'active' : '' }}">Dashboard</a>
+            <a href="/informasi-mahasiswa" class="{{ Request::is('informasi-mahasiswa*') ? 'active' : '' }}">Informasi
+                Mahasiswa</a>
+        </div>
     </div>
 
-    <footer>
+    <div class="container my-4 flex-grow-1">
+        <div class="mb-4">
+            <h5 class="fw-bold mb-1" style="color: #000000;">Informasi Mahasiswa</h5>
+            <p class="text-muted mb-0" style="font-size: 14px;">Lihat informasi mahasiswa bimbingan Anda</p>
+        </div>
 
-        © 2026 Politeknik Negeri Cilacap
+        <div class="d-flex justify-content-end mb-3">
+            <form method="GET" action="/informasi-mahasiswa" class="search-box-custom" id="searchForm">
+                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                    <input type="text" name="search" id="searchInput"
+                        class="form-control form-control-custom border-end-0" placeholder="Cari Nama Mahasiswa..."
+                        value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-dark fw-semibold px-3"
+                        style="background-color: #212529;">Cari</button>
+                </div>
+            </form>
+        </div>
 
-    </footer>
+        <div class="table-responsive mb-5">
+            <table class="table table-custom table-striped table-hover bg-white mb-0">
+                <thead>
+                    <tr>
+                        <th>Nama Mahasiswa</th>
+                        <th>Program</th>
+                        <th>Progress</th>
+                        <th>Komentar</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($mahasiswa as $aktivitas)
+                        @foreach($aktivitas as $index => $item)
+                            <tr>
+                                @if($index == 0)
+                                    <td class="fw-medium" rowspan="{{ $aktivitas->count() }}">{{ $item->name }}</td>
+                                    <td rowspan="{{ $aktivitas->count() }}">{{ $item->nama_program }}</td>
+                                @endif
+                                <td>
+                                    <b>{{ $item->bulan }}</b><br>
+                                    <small class="text-muted">{{ Str::limit($item->progress, 25) }}</small>
+                                </td>
+                                <td>{{ $item->komentar ?? '-' }}</td>
+                                @if($index == 0)
+                                    <td class="text-center" rowspan="{{ $aktivitas->count() }}">
+                                        <a href="/detail-mahasiswa/{{ $item->id }}"
+                                            class="btn-outline-dark-custom shadow-sm">Detail</a>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <footer class="text-center">&copy; 2026 Politeknik Negeri Cilacap</footer>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                document.getElementById('searchForm').submit();
+            }
+        });
+    </script>
 </body>
 
 </html>

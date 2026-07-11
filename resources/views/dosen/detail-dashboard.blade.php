@@ -1,213 +1,229 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Mahasiswa MBKM</title>
 
-    <meta charset="UTF-8">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        html,
         body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            background: #ececec;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            color: #212529;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        .wrapper {
-            flex: 1;
+        .navbar-custom {
+            background-color: #f4d233;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
         }
 
-        .header {
-            background: #f4d233;
-            padding: 15px 20px;
+        .logo-group img {
+            height: 45px;
+            object-fit: contain;
         }
 
-        .detail-wrapper {
-            width: 850px;
-            margin: 30px auto;
+        .brand-text small {
+            font-size: 11px;
+            color: #495057;
+            font-weight: 500;
         }
 
-        .form-control {
-            border: 1px solid #f4d233;
+        .brand-text strong {
+            font-size: 14px;
+            color: #000000;
         }
 
-        .table th,
-        .table td {
-            border: 1px solid #f4d233;
+        .detail-card-custom {
+            max-width: 850px;
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background-color: #f8f9fa;
         }
 
-        .table td {
-            vertical-align: middle;
+        .form-control-custom {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            background-color: #ffffff !important;
+            color: #334155;
         }
 
-        .btn-kembali {
-            background: #f4d233;
+        .table-custom {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .table-custom th {
+            background-color: #f4d233 !important;
+            color: #000000 !important;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 16px;
+            text-align: center;
             border: none;
-            width: 120px;
+        }
+
+        .table-custom td {
+            padding: 12px 16px;
+            font-size: 14px;
+            vertical-align: middle;
+            color: #334155;
+            background-color: #ffffff;
+        }
+
+        .btn-secondary-custom {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 32px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary-custom:hover {
+            background-color: #cbd5e1;
+            color: #1e293b;
         }
 
         footer {
-            background: #f4d233;
-            text-align: center;
-            padding: 10px;
+            background-color: #f4d233;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 15px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .logo-group img {
+                height: 32px;
+            }
+
+            .brand-text strong {
+                font-size: 12px;
+            }
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="wrapper">
-
-        <div class="header d-flex justify-content-between align-items-center">
-
-            <div class="d-flex align-items-center">
-
-                <img src="{{ asset('images/PNC.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/JKB.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/TI.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/mbkm.png') }}" height="50" style="padding:3px;">
-
-                <div class="ms-3">
-
-                    <small>Sistem Informasi MBKM Prodi</small><br>
-                    <small>Teknik Informatika</small><br>
-                    <strong>POLITEKNIK NEGERI CILACAP</strong>
-
+    <nav class="navbar navbar-custom">
+        <div class="container">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <div class="logo-group d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/PNC.png') }}" alt="PNC">
+                    <img src="{{ asset('images/JKB.png') }}" alt="JKB">
+                    <img src="{{ asset('images/TI.png') }}" alt="TI">
+                    <img src="{{ asset('images/mbkm.png') }}" alt="MBKM">
                 </div>
-
+                <div class="brand-text">
+                    <small class="d-block lh-1">Sistem Informasi Merdeka Belajar</small>
+                    <small class="d-block lh-1 mb-1">Teknik Informatika</small>
+                    <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
+                </div>
             </div>
-
-            <div>
-
-                <a href="/profile" class="btn btn-light rounded-pill">
-
+            <div class="d-flex gap-2 mt-2 mt-md-0">
+                <a href="{{ url('/profile') }}"
+                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">
                     {{ session('name') }}
-
                 </a>
-
-                <a href="/logout" class="btn btn-light btn-sm rounded-pill">
+                <a href="{{ url('/logout') }}" class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">
                     LOGOUT
                 </a>
-
             </div>
-
         </div>
+    </nav>
 
-        <div class="detail-wrapper">
+    <div class="container my-5 flex-grow-1">
+        <div class="card detail-card-custom w-100">
+            <div class="card-body p-4 p-md-5">
+                <h5 class="fw-bold mb-4" style="color: #000000;">Detail Mahasiswa</h5>
 
-            <div class="container mt-4">
-
-                <div class="row mb-3">
-
-                    <div class="col-md-3">
-                        Nama Mahasiswa
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-3 fw-semibold small text-secondary">Nama Mahasiswa</div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control form-control-custom" value="{{ $aktivitas->name }}"
+                            readonly>
                     </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->name }}" readonly>
-
-                    </div>
-
                 </div>
 
-                <div class="row mb-3">
-
-                    <div class="col-md-3">
-                        Program
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-3 fw-semibold small text-secondary">Program</div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control form-control-custom"
+                            value="{{ $aktivitas->nama_program }}" readonly>
                     </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->nama_program }}" readonly>
-
-                    </div>
-
                 </div>
 
-                <div class="row mb-3">
-
-                    <div class="col-md-3">
-                        Status
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-3 fw-semibold small text-secondary">Status</div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control form-control-custom"
+                            value="{{ $aktivitas->status_program }}" readonly>
                     </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->status_program }}" readonly>
-
-                    </div>
-
                 </div>
 
-                <div class="row mb-4">
-
-                    <div class="col-md-3">
-                        Learning Path
+                <div class="row mb-5 align-items-center">
+                    <div class="col-md-3 fw-semibold small text-secondary">Learning Path</div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control form-control-custom"
+                            value="{{ $aktivitas->learning_path }}" readonly>
                     </div>
-
-                    <div class="col-md-6">
-
-                        <input type="text" class="form-control" value="{{ $aktivitas->learning_path }}" readonly>
-
-                    </div>
-
                 </div>
 
-                <div class="row justify-content-center">
-
-                    <div class="col-md-8">
-
-                        <table class="table table-bordered bg-white">
-                            <thead>
-                                <tr>
-                                    <th width="150">Bulan</th>
-                                    <th>Progress</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($progress as $item)
+                <div class="row justify-content-center mb-4">
+                    <div class="col-12">
+                        <h6 class="fw-bold mb-3" style="color: #000000;">Laporan Progress Bulanan</h6>
+                        <div class="table-responsive">
+                            <table class="table table-custom table-bordered mb-0">
+                                <thead>
                                     <tr>
-                                        <td>{{ $item->bulan }}</td>
-                                        <td>{{ $item->progress }}</td>
+                                        <th style="width: 180px;">Bulan</th>
+                                        <th>Progress</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($progress as $item)
+                                        <tr>
+                                            <td class="text-center fw-medium">{{ $item->bulan }}</td>
+                                            <td class="text-secondary">{{ $item->progress }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
                 </div>
 
-                <div class="text-center mt-4">
-
-                    <a href="/dosen" class="btn btn-kembali">
-
+                <div class="text-center mt-5">
+                    <a href="javascript:history.back()" class="btn btn-secondary-custom shadow-sm">
                         Kembali
-
                     </a>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
-    <footer>
-
-        © 2026 Politeknik Negeri Cilacap
-
+    <footer class="text-center">
+        &copy; 2026 Politeknik Negeri Cilacap
     </footer>
 
 </body>

@@ -8,10 +8,14 @@ use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     return view('dashboard');
 });
+
+Route::get('/register', [RegisterController::class,'index']);
+Route::post('/register/store', [RegisterController::class,'store']);
 
 Route::get('/login', function () {
     return view('login');
@@ -50,7 +54,7 @@ Route::middleware('login')->group(function () {
 
     Route::get('/edit-program/{id}', [AktivitasController::class, 'edit']);
 
-    Route::post('/update-program/{id}', [AktivitasController::class, 'update']);
+    Route::patch('/update-status-program/{id}', [AktivitasController::class, 'update']);
 
     // Progress
     Route::get('/progress', [AktivitasController::class, 'formProgress']);

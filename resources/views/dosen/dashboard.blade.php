@@ -1,338 +1,269 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Dosen</title>
 
-    <meta charset="UTF-8">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        html,
         body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            background: #ececec;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            color: #212529;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        .wrapper {
-            flex: 1;
+        .navbar-custom {
+            background-color: #f4d233;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
         }
 
-        .header {
-            background: #f4d233;
-            padding: 15px 20px;
+        .logo-group img {
+            height: 45px;
+            object-fit: contain;
         }
 
-        .menu {
-            background: #f4d233;
-            padding: 0 20px 15px;
+        .brand-text small {
+            font-size: 11px;
+            color: #495057;
+            font-weight: 500;
         }
 
-        .menu a {
+        .brand-text strong {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .nav-menu-container {
+            background-color: #f4d233;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-menu-container a {
             text-decoration: none;
-            color: black;
-            margin-right: 20px;
+            color: #495057;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu-container a:hover {
+            color: #000000;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-menu-container a.active {
+            color: #000000;
+            background-color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-info-custom {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #f4d233;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-box-custom {
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .form-control-custom {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 8px 14px;
             font-size: 14px;
         }
 
-        .card-info {
-            background: #f4d233;
-            border: none;
-            height: 120px;
+        .table-custom {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
         }
 
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-box {
-            width: 350px;
-            margin-left: auto;
-        }
-
-        .search-box .input-group-text {
-            background: white;
-        }
-
-        .table th {
-            background: #f4d233 !important;
+        .table-custom th {
+            background-color: #f4d233 !important;
+            color: #000000 !important;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 16px;
             text-align: center;
-            vertical-align: middle;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-        .btn-detail {
-            background: #f4d233;
             border: none;
+        }
+
+        .table-custom td {
+            padding: 12px 16px;
+            font-size: 14px;
+            vertical-align: middle;
+            color: #334155;
+        }
+
+        .btn-outline-dark-custom {
+            background-color: transparent;
+            color: #212529;
+            border: 1px solid #212529;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .btn-outline-dark-custom:hover {
+            background-color: #212529;
+            color: #ffffff;
         }
 
         footer {
-            background: #f4d233;
-            text-align: center;
-            padding: 10px;
+            background-color: #f4d233;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 15px;
+            margin-top: auto;
         }
     </style>
-
 </head>
 
 <body>
-
-    <div class="wrapper">
-
-        <div class="header d-flex justify-content-between align-items-center">
-
-            <div class="d-flex align-items-center">
-
-                <img src="{{ asset('images/PNC.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/JKB.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/TI.png') }}" height="50" style="padding:3px;">
-                <img src="{{ asset('images/mbkm.png') }}" height="50" style="padding:3px;">
-
-                <div class="ms-3">
-
-                    <small>Sistem Informasi MBKM Prodi</small><br>
-                    <small>Teknik Informatika</small><br>
-                    <strong>POLITEKNIK NEGERI CILACAP</strong>
-
+    <nav class="navbar navbar-custom">
+        <div class="container">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <div class="logo-group d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/PNC.png') }}" alt="PNC">
+                    <img src="{{ asset('images/JKB.png') }}" alt="JKB">
+                    <img src="{{ asset('images/TI.png') }}" alt="TI">
+                    <img src="{{ asset('images/mbkm.png') }}" alt="MBKM">
                 </div>
-
+                <div class="brand-text">
+                    <small class="d-block lh-1">Sistem Informasi Merdeka Belajar</small>
+                    <small class="d-block lh-1 mb-1">Teknik Informatika</small>
+                    <strong class="d-block lh-1">POLITEKNIK NEGERI CILACAP</strong>
+                </div>
             </div>
-
-            <div>
-
-                <a href="/profile" class="btn btn-light rounded-pill">
-
-                    {{ session('name') }}
-
-                </a>
-                
-                <a href="/logout" class="btn btn-light btn-sm rounded-pill">
-
-                    LOGOUT
-
-                </a>
-
+            <div class="d-flex gap-2 mt-2 mt-md-0">
+                <a href="{{ url('/profile') }}"
+                    class="btn btn-light btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm">{{ session('name') }}</a>
+                <a href="{{ url('/logout') }}"
+                    class="btn btn-dark btn-sm rounded-pill px-3 py-2 fw-bold shadow-sm">Logout</a>
             </div>
-
         </div>
+    </nav>
 
-        <div class="menu">
-
-            <a href="/dosen"><b>Dashboard</b></a>
-
-            <a href="/informasi-mahasiswa">
-
-                Informasi Mahasiswa
-
-            </a>
-
+    <div class="nav-menu-container">
+        <div class="container d-flex gap-2 flex-wrap">
+            <a href="/dosen" class="{{ Request::is('dosen') ? 'active' : '' }}">Dashboard</a>
+            <a href="/informasi-mahasiswa" class="{{ Request::is('informasi-mahasiswa*') ? 'active' : '' }}">Informasi
+                Mahasiswa</a>
         </div>
-
-        <div class="container-fluid mt-4">
-
-            <h6 class="fw-bold mb-3">
-
-                Dashboard
-
-            </h6>
-
-            <div class="row mb-5">
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <b>Total Aktivitas MBKM</b>
-
-                            <h4 class="mt-3">
-
-                                {{ $totalAktivitas }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <b>MBKM Berlangsung</b>
-
-                            <h4 class="mt-3">
-
-                                {{ $berlangsung }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-info">
-
-                        <div class="card-body">
-
-                            <b>MBKM Status Selesai</b>
-
-                            <h4 class="mt-3">
-
-                                {{ $selesai }}
-
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <form action="/dosen" method="GET">
-
-                <div class="search-box mb-4">
-
-                    <div class="input-group">
-
-                        <input type="text" name="search" value="{{ request('search') }}" class="form-control"
-                            placeholder="Cari Nama Mahasiswa Bimbingan">
-
-                        <button class="input-group-text">
-
-                            <i class="bi bi-search"></i>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </form>
-
-            <table class="table table-bordered bg-white">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Nama Mahasiswa</th>
-
-                        <th>Program</th>
-
-                        <th>Status</th>
-
-                        <th>Progress</th>
-
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @foreach($data as $aktivitas)
-
-                        @php
-                            $rowspan = $aktivitas->count();
-                        @endphp
-
-                        @foreach($aktivitas as $index => $item)
-
-                            <tr>
-
-                                @if($index == 0)
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        {{ $item->name }}
-
-                                    </td>
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle">
-
-                                        {{ $item->nama_program }}
-
-                                    </td>
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        {{ $item->status_program }}
-
-                                    </td>
-
-                                @endif
-
-                                <td>
-
-                                    <b>{{ $item->bulan }}</b><br>
-
-                                    {{ Str::limit($item->progress, 40) }}
-
-                                </td>
-
-                                @if($index == 0)
-
-                                    <td rowspan="{{ $rowspan }}" class="align-middle text-center">
-
-                                        <a href="/detail-dashboard/{{ $item->id }}" class="btn btn-detail btn-sm">
-
-                                            Detail
-
-                                        </a>
-
-                                    </td>
-
-                                @endif
-
-                            </tr>
-
-                        @endforeach
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
-        </div>
-
     </div>
 
-    <footer>
+    <div class="container my-4 flex-grow-1">
+        <h5 class="fw-bold mb-2">Dashboard Dosen</h5>
+        <p class="text-muted mb-4" style="font-size: 14px;">Selamat datang di dashboard dosen</p>
 
-        © 2026 Politeknik Negeri Cilacap
+        <div class="row g-3 mb-5">
+            <div class="col-md-4">
+                <div class="card card-info-custom p-4 text-center">
+                    <small class="text-secondary fw-semibold text-uppercase" style="font-size: 11px;">Total Aktivitas
+                        MBKM</small>
+                    <h3 class="mt-2 mb-0 fw-bold text-dark">{{ $totalAktivitas }}</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-info-custom p-4 text-center">
+                    <small class="text-secondary fw-semibold text-uppercase" style="font-size: 11px;">MBKM
+                        Berlangsung</small>
+                    <h3 class="mt-2 mb-0 fw-bold" style="color: #b58900;">{{ $berlangsung }}</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-info-custom p-4 text-center">
+                    <small class="text-secondary fw-semibold text-uppercase" style="font-size: 11px;">MBKM Status
+                        Selesai</small>
+                    <h3 class="mt-2 mb-0 fw-bold text-success">{{ $selesai }}</h3>
+                </div>
+            </div>
+        </div>
 
-    </footer>
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h6 class="fw-bold mb-0">Daftar Aktivitas Mahasiswa</h6>
+            <form action="/dosen" method="GET" class="search-box-custom" id="searchForm">
+                <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                    <input type="text" name="search" id="searchInput"
+                        class="form-control form-control-custom border-end-0" placeholder="Cari Nama Mahasiswa..."
+                        value="{{ request('search') }}">
+                    <button class="btn btn-dark fw-semibold px-3" type="submit"
+                        style="background-color: #212529;">Cari</button>
+                </div>
+            </form>
+        </div>
 
+        <div class="table-responsive mb-5">
+            <table class="table table-custom table-striped table-hover bg-white mb-0">
+                <thead>
+                    <tr>
+                        <th>Nama Mahasiswa</th>
+                        <th>Program</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th style="width: 120px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $aktivitas)
+                        @foreach($aktivitas as $index => $item)
+                            <tr>
+                                @if($index == 0)
+                                    <td class="fw-medium" rowspan="{{ $aktivitas->count() }}">{{ $item->name }}</td>
+                                    <td rowspan="{{ $aktivitas->count() }}">{{ $item->nama_program }}</td>
+                                    <td rowspan="{{ $aktivitas->count() }}">
+                                        <span
+                                            class="badge bg-warning text-dark px-2.5 py-1.5 rounded">{{ $item->status_program }}</span>
+                                    </td>
+                                @endif
+                                <td>
+                                    <b>{{ $item->bulan }}</b><br>
+                                    <small class="text-muted">{{ Str::limit($item->progress, 40) }}</small>
+                                </td>
+                                @if($index == 0)
+                                    <td class="text-center" rowspan="{{ $aktivitas->count() }}">
+                                        <a href="/detail-dashboard/{{ $item->id }}"
+                                            class="btn-outline-dark-custom shadow-sm">Detail</a>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="text-center">&copy; 2026 Politeknik Negeri Cilacap</footer>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                document.getElementById('searchForm').submit();
+            }
+        });
+    </script>
 </body>
 
 </html>
