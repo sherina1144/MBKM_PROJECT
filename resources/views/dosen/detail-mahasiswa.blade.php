@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Mahasiswa MBKM</title>
-
+    <title>Edit Detail Mahasiswa MBKM - POLITEKNIK NEGERI CILACAP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         body {
             background-color: #ffffff;
@@ -41,23 +39,42 @@
             color: #000000;
         }
 
-        .detail-card-custom {
-            max-width: 850px;
-            width: 100%;
-            margin: 0 auto;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            background-color: #f8f9fa;
+        .btn-back-round {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            text-decoration: none;
+            color: #000;
+            transition: 0.2s;
         }
 
-        .form-control-custom {
+        .btn-back-round:hover {
+            background-color: #f1f1f1;
+            border-color: #94a3b8;
+        }
+
+        .detail-wrapper {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .form-control-edit {
+            background-color: #ffffff;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
-            padding: 10px 14px;
             font-size: 14px;
-            background-color: #ffffff !important;
-            color: #334155;
+        }
+
+        .form-control-edit:focus {
+            border-color: #f4d233;
+            box-shadow: 0 0 0 3px rgba(244, 210, 51, 0.2);
         }
 
         .table-custom {
@@ -77,29 +94,42 @@
         }
 
         .table-custom td {
-            padding: 12px 16px;
+            padding: 8px 16px;
             font-size: 14px;
             vertical-align: middle;
             color: #334155;
+            border-color: #e2e8f0;
             background-color: #ffffff;
         }
 
-        .btn-secondary-custom {
-            background-color: #e2e8f0;
-            color: #475569;
+        .comment-input {
+            border: none;
+            resize: none;
+            background: transparent;
+            width: 100%;
+            font-size: 13px;
+            padding: 6px;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            background-color: #f8fafc;
+            border-radius: 4px;
+        }
+
+        .btn-save-custom {
+            background-color: #212529;
+            color: #ffffff;
             border: none;
             font-weight: 600;
-            font-size: 14px;
             padding: 10px 32px;
             border-radius: 8px;
             transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .btn-secondary-custom:hover {
-            background-color: #cbd5e1;
-            color: #1e293b;
+        .btn-save-custom:hover {
+            background-color: #000000;
+            color: #ffffff;
         }
 
         .btn-logout {
@@ -119,23 +149,13 @@
             font-size: 13px;
             font-weight: 600;
             padding: 15px;
-            margin-top: auto;
-        }
-
-        @media (max-width: 768px) {
-            .logo-group img {
-                height: 32px;
-            }
-
-            .brand-text strong {
-                font-size: 12px;
-            }
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-
     <nav class="navbar navbar-custom">
         <div class="container">
             <div class="d-flex align-items-center flex-wrap gap-2">
@@ -169,80 +189,103 @@
         </div>
     </nav>
 
-    <div class="container my-5 flex-grow-1">
-        <div class="card detail-card-custom w-100">
-            <div class="card-body p-4 p-md-5">
-                <h5 class="fw-bold mb-4" style="color: #000000;">Detail Mahasiswa</h5>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-md-3 fw-semibold small text-secondary">Nama Mahasiswa</div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control form-control-custom" value="{{ $aktivitas->name }}"
-                            readonly>
-                    </div>
-                </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-md-3 fw-semibold small text-secondary">Program</div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control form-control-custom"
-                            value="{{ $aktivitas->nama_program }}" readonly>
-                    </div>
-                </div>
-
-                <div class="row mb-3 align-items-center">
-                    <div class="col-md-3 fw-semibold small text-secondary">Status</div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control form-control-custom"
-                            value="{{ $aktivitas->status_program }}" readonly>
-                    </div>
-                </div>
-
-                <div class="row mb-5 align-items-center">
-                    <div class="col-md-3 fw-semibold small text-secondary">Learning Path</div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control form-control-custom"
-                            value="{{ $aktivitas->learning_path }}" readonly>
-                    </div>
-                </div>
-
-                <div class="row justify-content-center mb-4">
-                    <div class="col-12">
-                        <h6 class="fw-bold mb-3" style="color: #000000;">Laporan Progress Bulanan</h6>
-                        <div class="table-responsive">
-                            <table class="table table-custom table-bordered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 180px;">Bulan</th>
-                                        <th>Progress</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($progress as $item)
-                                        <tr>
-                                            <td class="text-center fw-medium">{{ $item->bulan }}</td>
-                                            <td class="text-secondary">{{ $item->progress }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-5">
-                    <a href="javascript:history.back()" class="btn btn-secondary-custom shadow-sm">
-                        Kembali
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="container mt-5">
+        <a href="javascript:history.back()" class="btn-back-round shadow-sm mb-3">&larr;</a>
     </div>
 
-    <footer class="text-center">
+    <form action="{{ url('/komentar/update/' . $aktivitas->id) }}" method="POST">
+        @csrf
+
+        <div class="detail-wrapper">
+            <div class="mb-4">
+                <h5 class="fw-bold mb-1">Edit Detail Mahasiswa</h5>
+                <p class="text-muted mb-0" style="font-size: 14px;">Perbarui data mahasiswa dan tambahkan komentar
+                    bimbingan</p>
+            </div>
+
+            @if(session('success'))
+                <div class="alert alert-success mt-3" style="font-size: 14px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger mt-3" style="font-size: 14px;">
+                    Terjadi kesalahan saat menyimpan data.
+                </div>
+            @endif
+
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-3 fw-bold">Nama Mahasiswa</div>
+                <div class="col-md-9">
+                    <input type="text" name="name" class="form-control form-control-edit"
+                        value="{{ old('name', $aktivitas->name) }}" required>
+                </div>
+            </div>
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-3 fw-bold">Program</div>
+                <div class="col-md-9">
+                    <input type="text" name="nama_program" class="form-control form-control-edit"
+                        value="{{ old('nama_program', $aktivitas->nama_program) }}" required>
+                </div>
+            </div>
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-3 fw-bold">Status</div>
+                <div class="col-md-9">
+                    <select name="status_program" class="form-control form-control-edit" required>
+                        <option value="Aktif" {{ $aktivitas->status_program == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Selesai" {{ $aktivitas->status_program == 'Selesai' ? 'selected' : '' }}>Selesai
+                        </option>
+                        <option value="Dibatalkan" {{ $aktivitas->status_program == 'Dibatalkan' ? 'selected' : '' }}>
+                            Dibatalkan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-3 fw-bold">Learning Path</div>
+                <div class="col-md-9">
+                    <textarea name="learning_path" class="form-control form-control-edit" rows="2"
+                        required>{{ old('learning_path', $aktivitas->learning_path) }}</textarea>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h6 class="fw-bold mb-3">Laporan Progress Bulanan & Komentar Dosen</h6>
+                <div class="table-responsive table-custom">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th width="15%">Bulan</th>
+                                <th width="45%">Progress Dilaporkan</th>
+                                <th width="40%">Komentar Dosen (Edit)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($progress as $index => $item)
+                                <tr>
+                                    <td class="text-center fw-medium">{{ $item->bulan }}</td>
+                                    <td>{{ $item->progress }}</td>
+                                    <td>
+                                        <input type="hidden" name="progress_ids[]" value="{{ $item->id }}">
+                                        <textarea name="komentar[]" class="comment-input" rows="2"
+                                            placeholder="Tambahkan komentar...">{{ old('komentar.' . $index, $item->komentar) }}</textarea>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-save-custom shadow-sm">Simpan Perubahan</button>
+            </div>
+        </div>
+    </form>
+
+    <footer class="text-center mt-auto">
         &copy; 2026 Politeknik Negeri Cilacap
     </footer>
-
 </body>
 
 </html>

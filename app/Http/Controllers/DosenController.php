@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class DosenController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $totalAktivitas = DB::table('aktivitas_mbkm')->count();
 
@@ -29,14 +29,14 @@ class DosenController extends Controller
         }
 
         $data = $query->select(
-                'aktivitas_mbkm.id',
-                'users.name',
-                'program_mbkm.nama_program',
-                'aktivitas_mbkm.status_program',
-                'progress_mbkm.id as progress_id',
-                'progress_mbkm.bulan',
-                'progress_mbkm.progress'
-            )
+            'aktivitas_mbkm.id',
+            'users.name',
+            'program_mbkm.nama_program',
+            'aktivitas_mbkm.status_program',
+            'progress_mbkm.id as progress_id',
+            'progress_mbkm.bulan',
+            'progress_mbkm.progress'
+        )
             ->orderBy('aktivitas_mbkm.id')
             ->get()
             ->groupBy('id');
@@ -52,7 +52,7 @@ class DosenController extends Controller
         );
     }
 
-        public function detailDashboard($id)
+    public function detailDashboard($id)
     {
         $aktivitas = DB::table('aktivitas_mbkm')
             ->join('users', 'users.id', '=', 'aktivitas_mbkm.user_id')
@@ -174,19 +174,23 @@ class DosenController extends Controller
 
     public function updateKomentar(Request $request, $id)
     {
-        DB::table('komentar_dosen')
+        if ($request->has('komentar') && $request->has('progress_ids')) {
+            foreach ($request->progress_ids as $index => $progressId) {
+                $komentarText = $request->komentar[$index];
 
-            ->where('progress_id', $id)
+                DB::table('komentar_dosen')->updateOrInsert(
+                    ['progress_id' => $progressId],
+                    [
+                        'komentar' => $komentarText,
+                        'dosen_id' => session('user_id'), 
+                        'updated_at' => now(),
+                        'created_at' => now() 
+                    ]
+                );
+            }
+        }
 
-            ->update([
-
-                'komentar' => $request->komentar,
-
-                'updated_at' => now()
-
-            ]);
-
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Komentar dan data mahasiswa berhasil diperbarui!');
     }
 
     public function formTambahKomentar($id)

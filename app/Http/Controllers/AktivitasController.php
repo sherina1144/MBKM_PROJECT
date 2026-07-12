@@ -87,12 +87,10 @@ class AktivitasController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Hanya validasi status_program karena data ini saja yang dikirim dari dropdown
         $request->validate([
             'status_program' => 'required|in:Berlangsung,Selesai',
         ]);
 
-        // Update status_program berdasarkan ID aktivitas
         DB::table('aktivitas_mbkm')
             ->where('id', $id)
             ->update([
